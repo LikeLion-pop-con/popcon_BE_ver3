@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'rest_framework',
+    'drf_yasg',
+    'corsheaders', # cors오류 pip install django-cors-headers 추가
+
 ]
 
 MIDDLEWARE = [
@@ -49,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',# cors오류 
 ]
 
 ROOT_URLCONF = 'popup.urls'
@@ -126,3 +130,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = 'user.User'
+
+CORS_ALLOW_ALL_ORIGINS = True # cors 오류 
+
+
+
+# CORS_ALLOWED_ORIGINS = [ # 특정 출처만 허용하려면, CORS_ALLOWED_ORIGINS 설정에 허용할 출처 리스트를 추가합니다.
+#     "https://example.com",
+#     "https://sub.example.com",
+#     "http://localhost:8080",
+#     "http://127.0.0.1:9000"
+# ]
