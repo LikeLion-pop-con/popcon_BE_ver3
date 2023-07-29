@@ -12,6 +12,9 @@ from rest_framework.response import Response
 
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 @csrf_exempt
 def deco(requset):
@@ -26,7 +29,11 @@ class LoginView(APIView): # 로그인 관련 뷰
         user = authenticate(request, username=userID,password=password)
         if user is not None:
             login(request, user)
-            return Response({"message": "로그인 성공"}, status=200)
+            token, _ = Token.objects.get_or_create(user=user)
+
+            return Response({"message": "로그인 성공",'token':token.key}, status=200)
+            
+        
         else:
             return Response({"message": "아이디 또는 비밀번호가 틀렸습니다."}, status=400)
         
