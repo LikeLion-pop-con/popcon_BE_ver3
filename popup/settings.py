@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'rest_framework',
-    #'drf_yasg',
+    'drf_yasg',
     'corsheaders', # cors오류 pip install django-cors-headers 추가
 
 ]
