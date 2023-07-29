@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'rest_framework',
-    'drf_yasg',
+    #'drf_yasg',
     'corsheaders', # cors오류 pip install django-cors-headers 추가
 
 ]
@@ -131,7 +131,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.User'
 
-#CORS_ALLOW_ALL_ORIGINS = True # cors 오류 
+CORS_ALLOW_ALL_ORIGINS = True # cors 오류 
 
 
 
@@ -141,33 +141,33 @@ AUTH_USER_MODEL = 'user.User'
 #     "http://localhost:8080",
 #     "http://127.0.0.1:9000"
 # ]
-# CSRF_COOKIE_SECURE=True
+CSRF_COOKIE_SECURE=True
 
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
 
-# CSRF_TRUSTED_ORIGINS = (
-#     'http://43.200.175.239:8000',
-#     #'https://heartgold.store',
-# )
+CSRF_TRUSTED_ORIGINS = (
+    'http://43.200.175.239:8000',
+    #'https://heartgold.store',
+)
 
-# CORS_ALLOW_HEADERS = (
-#     'access-control-allow-credentials',
-#     'access-control-allow-origin',
-#     'access-control-request-method',
-#     'access-control-request-headers',
-#     'accept',
-#     'accept-encoding',
-#     'accept-language',
-#     'authorization',
-#     'connection',
-#     'content-type',
-#     'dnt',
-#     'credentials',
-#     'host',
-#     'origin',
-#     'user-agent',
-#     'X-CSRFToken',
-#     'csrftoken',
-#     'x-requested-with',
-# )
+CORS_ALLOW_HEADERS = (
+    'access-control-allow-credentials',
+    'access-control-allow-origin',
+    'access-control-request-method',
+    'access-control-request-headers',
+    'accept',
+    'accept-encoding',
+    'accept-language',
+    'authorization',
+    'connection',
+    'content-type',
+    'dnt',
+    'credentials',
+    'host',
+    'origin',
+    'user-agent',
+    'X-CSRFToken',
+    'csrftoken',
+    'x-requested-with',
+)
 
