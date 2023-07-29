@@ -10,6 +10,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def deco(requset):
+    return HttpResponse("success")
+
 
 class LoginView(APIView): # 로그인 관련 뷰
     def post(self, request):
