@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken', # 토큰유지?
     'drf_yasg',
     'corsheaders', # cors오류 pip install django-cors-headers 추가
+    'brand',
 
 ]
 
