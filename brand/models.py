@@ -4,20 +4,27 @@ class Brand(models.Model):
     brand_name = models.CharField(verbose_name='기업이름',max_length=50)
     brand_intro=models.TextField(verbose_name='기업소개')
     brand_subcounts=models.IntegerField(verbose_name='구독수',default=0)
-    def is_staff(self):
-        return self.is_admin
-    
+    def __str__(self):
+        return self.brand_name
 
+class Category(models.Model):
+    name= models.CharField(verbose_name='카테고리',max_length=50)
+    def __str__(self):
+        return self.name
 
 
 class Popup(models.Model):
+    brand_info = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
+
     popup_name=models.CharField(verbose_name='팝업이름',max_length=50)
     popup_opendate=models.DateField (verbose_name='오픈날짜', auto_now = False , auto_now_add = False )
     popup_closedate=models.DateField (verbose_name='마감날짜', auto_now = False , auto_now_add = False )
-    popup_info=
-    popup_image=
-    popup_like=
-    popup_category=
+    popup_info=models.TextField(verbose_name='팝업내용')
+    popup_image=models.ImageField (verbose_name='팝업이미지')
+    popup_like= models.IntegerField(verbose_name='팝업좋아요수', default=0)
+
+    popup_category=models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+
     Seoul = models.IntegerField(verbose_name='서울특별시', default=0)
     Busan = models.IntegerField(verbose_name='부산광역시', default=0)
     Incheon = models.IntegerField(verbose_name='인천광역시', default=0)
@@ -35,4 +42,5 @@ class Popup(models.Model):
     Gyeongsangbuk_Province = models.IntegerField(verbose_name='경상북도', default=0)
     Gyeongsangnam_Province = models.IntegerField(verbose_name='경상남도', default=0)
     Jeju_Special_Self_Governing_Province = models.IntegerField(verbose_name='제주특별자치도', default=0)
-
+    def __str__(self):
+        return self.popup_name
