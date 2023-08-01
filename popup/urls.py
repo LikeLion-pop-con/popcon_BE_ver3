@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include,re_path
 from user import views
-from brand.views import AllPopup_listView ,willOpenPopup_listView,OpenedPopup_listView
+from brand.views import AllPopup_listView ,willOpenPopup_listView,OpenedPopup_listView,SearchView
 
 
 
@@ -55,6 +55,7 @@ urlpatterns = [
     path('popuplist/all',AllPopup_listView.as_view()),
     path('popuplist/opened',OpenedPopup_listView.as_view()),
     path('popuplist/willopen',willOpenPopup_listView.as_view()),
+    path('search/<str:search_name>',SearchView.as_view(),name='search_name'),
 
     
     # Swagger url

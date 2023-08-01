@@ -29,6 +29,12 @@ class willOpenPopup_listView(APIView):
         popuplistSerializer=PopupSerializer(willopen_popup_list,many=True)
         return Response(popuplistSerializer.data,status=200)
 
+class SearchView(APIView):
+    def get(self, request,search_name):
+       
+        Popups = Popup.objects.filter(popup_name = search_name)
+        popupserializer = PopupSerializer(Popups, many=True)
+        return Response(popupserializer.data, status=200)
 
 
 def get_popup(request, popup_id):
