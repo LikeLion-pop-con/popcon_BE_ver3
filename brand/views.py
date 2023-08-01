@@ -5,6 +5,20 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .models import Popup
 
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import PopupSerializer
+
+class Popup_listView(APIView):
+    def get(self,request):
+        all_popup_list=Popup.objects.all()
+        popuplistSerializer=PopupSerializer(all_popup_list,many=True)
+        return Response(popuplistSerializer.data,status=200)
+
+
+
+
+
 def get_popup(request, popup_id):
     if request.method == 'GET':
         popup = get_object_or_404(Popup, id=popup_id)
@@ -37,3 +51,5 @@ def get_popup(request, popup_id):
         return JsonResponse(popup_data)
     else:
         return JsonResponse({"error": "GET request required."}, status=400)
+    
+

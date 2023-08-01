@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include,re_path
 from user import views
+from brand.views import Popup_listView 
 
 from user.views import *
 
@@ -45,6 +46,9 @@ urlpatterns = [
     path('myinfo/',MyInfo.as_view()),
     path('logout/',LogoutView.as_view()),
     
+
+    path('popuplist/',Popup_listView.as_view()),
+
     
     # Swagger url
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
