@@ -9,13 +9,25 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import PopupSerializer
 
-class Popup_listView(APIView):
+class AllPopup_listView(APIView):
     def get(self,request):
         all_popup_list=Popup.objects.all()
         popuplistSerializer=PopupSerializer(all_popup_list,many=True)
         return Response(popuplistSerializer.data,status=200)
 
 
+class OpenedPopup_listView(APIView):
+    def get(self,request):
+        opened_popup_list=Popup.objects.filter(popup_state=1)
+        popuplistSerializer=PopupSerializer(opened_popup_list,many=True)
+        return Response(popuplistSerializer.data,status=200)
+
+
+class willOpenPopup_listView(APIView):
+    def get(self,request):
+        willopen_popup_list=Popup.objects.filter(popup_state=2)
+        popuplistSerializer=PopupSerializer(willopen_popup_list,many=True)
+        return Response(popuplistSerializer.data,status=200)
 
 
 
