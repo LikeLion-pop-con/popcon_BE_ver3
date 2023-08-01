@@ -16,11 +16,13 @@ class Category(models.Model):
 class Popup(models.Model):
     brand_info = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
 
+    popup_state = models.IntegerField(verbose_name='오픈1_예정2', default=0,null=True)
+
     popup_name=models.CharField(verbose_name='팝업이름',max_length=50)
     popup_opendate=models.DateField (verbose_name='오픈날짜', auto_now = False , auto_now_add = False )
     popup_closedate=models.DateField (verbose_name='마감날짜', auto_now = False , auto_now_add = False )
     popup_info=models.TextField(verbose_name='팝업내용')
-    popup_image=models.ImageField (verbose_name='팝업이미지')
+    popup_image=models.ImageField (verbose_name='팝업이미지', null=True)
     popup_like= models.IntegerField(verbose_name='팝업좋아요수', default=0)
 
     popup_category=models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
