@@ -12,7 +12,13 @@ class BrandSerializer(serializers.ModelSerializer):
 class PopupSerializer(serializers.ModelSerializer):
     brand_info=serializers.StringRelatedField()
     popup_category = serializers.StringRelatedField()
+    #image = serializers.ImageField(use_url=True)# image를 추가를 위한
     class Meta:
         model = Popup
         fields = '__all__'
 
+# class PopupimageSerializer(serializers.HyperlinkedModelSerializer):
+#     image = serializers.ImageField(use_url=True)# image를 추가를 위한
+#     class Meta:
+#         model = Popup
+#         fields = ('image')

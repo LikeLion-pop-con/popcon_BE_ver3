@@ -22,7 +22,7 @@ class Popup(models.Model):
     popup_opendate=models.DateField (verbose_name='오픈날짜', auto_now = False , auto_now_add = False )
     popup_closedate=models.DateField (verbose_name='마감날짜', auto_now = False , auto_now_add = False )
     popup_info=models.TextField(verbose_name='팝업내용')
-    popup_image=models.ImageField (verbose_name='팝업이미지', null=True)
+    popup_image=models.ImageField (verbose_name='팝업이미지', blank=True, null=True)
     popup_like= models.IntegerField(verbose_name='팝업좋아요수', default=0)
 
     popup_category=models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
