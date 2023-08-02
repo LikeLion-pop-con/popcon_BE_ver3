@@ -31,7 +31,7 @@ class LoginView(APIView): # 로그인 관련 뷰
             login(request, user)
             token, _ = Token.objects.get_or_create(user=user)
 
-            return Response({"message": "로그인 성공",'token':token.key}, status=200)
+            return Response({"message": "로그인 성공",'token':token.key,'이름':user.user_name}, status=200)
             
         
         else:
