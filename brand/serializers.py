@@ -17,8 +17,6 @@ class PopupSerializer(serializers.ModelSerializer):
         model = Popup
         fields = '__all__'
 
-# class PopupimageSerializer(serializers.HyperlinkedModelSerializer):
-#     image = serializers.ImageField(use_url=True)# image를 추가를 위한
-#     class Meta:
-#         model = Popup
-#         fields = ('image')
+
+
+
