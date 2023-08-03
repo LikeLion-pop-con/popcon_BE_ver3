@@ -19,6 +19,7 @@ from django.urls import path,include,re_path
 from user import views
 from brand.views import AllPopup_listView ,willOpenPopup_listView,OpenedPopup_listView,SearchView
 from brand.views import CategoryPopup_listView
+from popup_place.views import PopupPlaceView
 
 
 from user.views import *
@@ -57,6 +58,7 @@ urlpatterns = [
     path('popuplist/opened',OpenedPopup_listView.as_view()),
     path('popuplist/willopen',willOpenPopup_listView.as_view()),
     path('search/<str:search_name>',SearchView.as_view(),name='search_name'),
+    path('popupplace/<int:pkey>',PopupPlaceView.as_view(),name='pkey'),
 
     
     # Swagger url

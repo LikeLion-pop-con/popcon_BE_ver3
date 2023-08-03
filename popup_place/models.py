@@ -15,3 +15,6 @@ class PopupPlace(models.Model):
     warehouse=models.IntegerField(verbose_name='창고사용',default=0)
     freight=models.IntegerField(verbose_name='화물 E/V',default=0)
     parking=models.IntegerField(verbose_name='주차지원',default=0)
+    pkey = models.IntegerField(verbose_name='팝업공간pk',default=0)
+    def __str__(self):
+        return self.popup_place_title
