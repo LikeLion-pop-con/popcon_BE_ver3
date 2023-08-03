@@ -53,7 +53,7 @@ urlpatterns = [
     
 
     path('popuplist/all',AllPopup_listView.as_view()),
-    path('category/<int:input>',CategoryPopup_listView.as_view(),name='input'),
+    path('main/<int:input>',CategoryPopup_listView.as_view(),name='input'),#카테고리 리스트
     path('popuplist/opened',OpenedPopup_listView.as_view()),
     path('popuplist/willopen',willOpenPopup_listView.as_view()),
     path('search/<str:search_name>',SearchView.as_view(),name='search_name'),
