@@ -29,26 +29,6 @@ class willOpenPopup_listView(APIView):
         popuplistSerializer=PopupSerializer(willopen_popup_list,many=True)
         return Response(popuplistSerializer.data,status=200)
 
-# class SearchView(APIView):
-#     def get(self, request, search_name):
-#         # 먼저 popup_name으로 검색해봅니다.
-#         popups = Popup.objects.filter(popup_name__icontains=search_name)
-#         if popups.exists():
-#             # popup_name이 존재하는 경우, 해당 Popup을 리턴합니다.
-#             popup_serializer = PopupSerializer(popups, many=True)
-#             return Response(popup_serializer.data, status=200)
-#         else:
-#             # popup_name이 존재하지 않는 경우 Brand를 검색합니다.
-#             brands = Brand.objects.filter(brand_name__icontains=search_name)
-#             if brands.exists():
-#                 # Brand가 존재하는 경우, 해당 Brand를 리턴합니다.
-#                 brand_serializer = BrandSerializer(brands, many=True)
-#                 return Response(brand_serializer.data, status=200)
-#             else:
-#                 # Brand도 존재하지 않는 경우 에러 메시지를 리턴합니다.
-#                 error_message = {"message": "검색 결과가 없습니다."}
-#                 return Response(error_message, status=404)
-
 
 
 class SearchView(APIView):
@@ -69,3 +49,23 @@ class SearchView(APIView):
             # Brand도 존재하지 않는 경우 에러 메시지를 리턴합니다.
             error_message = {"message": "검색 결과가 없습니다."}
             return Response(error_message, status=404)
+        
+
+class CategoryPopup_listView(APIView):
+    def get(self,request,input):
+        if input==1:
+            popups=Popup.objects.filter(popup_category=5)#스토어
+            popuplistSerializer=PopupSerializer(popups,many=True)
+            return Response(popuplistSerializer.data,status=200)
+        elif input==2:
+            popups=Popup.objects.filter(popup_category=6)#갤러리
+            popuplistSerializer=PopupSerializer(popups,many=True)
+            return Response(popuplistSerializer.data,status=200)
+        elif input==3:
+            popups=Popup.objects.filter(popup_category=7)#스테이지
+            popuplistSerializer=PopupSerializer(popups,many=True)
+            return Response(popuplistSerializer.data,status=200)
+        elif input==4:
+            popups=Popup.objects.filter(popup_category=8)#클래스
+            popuplistSerializer=PopupSerializer(popups,many=True)
+            return Response(popuplistSerializer.data,status=200)

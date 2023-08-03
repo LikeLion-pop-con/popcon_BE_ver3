@@ -31,7 +31,14 @@ class LoginView(APIView): # 로그인 관련 뷰
             login(request, user)
             token, _ = Token.objects.get_or_create(user=user)
 
-            return Response({"message": "로그인 성공",'token':token.key,'이름':user.user_name}, status=200)
+            return Response({"message": "로그인 성공",
+                             'token':token.key,
+                             'id':user.userID,
+                             '회원종류':user.user_type,
+                             '이름':user.user_name,
+                             '전화번호':user.user_phonenum,
+                             '주소':user.user_address,
+                             '성별_1남자_2여자':user.user_gender}, status=200)
             
         
         else:
