@@ -11,4 +11,7 @@ class PopupPlace(models.Model):
     popup_place_intro=models.TextField(verbose_name='공간소개',max_length=500)
     popup_place_point=models.TextField(verbose_name='주요포인트',max_length=300)
     popup_place_recom=models.CharField(verbose_name='공간활용추천',max_length=200)
-    electricity=models.IntegerField(verbose_name='전기사용',max_length=)
+    electricity=models.IntegerField(verbose_name='전기사용',default=0)
+    warehouse=models.IntegerField(verbose_name='창고사용',default=0)
+    freight=models.IntegerField(verbose_name='화물 E/V',default=0)
+    parking=models.IntegerField(verbose_name='주차지원',default=0)
