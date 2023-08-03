@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'corsheaders', # cors오류 pip install django-cors-headers 추가
     'brand',
+    'popup_place',
 
 ]
 
