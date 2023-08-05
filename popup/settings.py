@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'corsheaders', # cors오류 pip install django-cors-headers 추가
     'brand',
+    'popup_place',
 
 ]
 
@@ -149,7 +150,12 @@ CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = (
     'http://43.200.175.239:8000',
+    'http://13.125.44.159:8000',
     'https://heartgold.store',
+    'https://popcon.store',
+
+    #ddd
+    #222
 )
 
 CORS_ALLOW_HEADERS = (
@@ -173,3 +179,5 @@ CORS_ALLOW_HEADERS = (
     'x-requested-with',
 )
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

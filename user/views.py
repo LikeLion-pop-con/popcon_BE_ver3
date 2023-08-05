@@ -15,6 +15,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from drf_yasg import openapi 
+from drf_yasg.utils import swagger_auto_schema
 
 @csrf_exempt
 def deco(requset):
@@ -22,6 +24,15 @@ def deco(requset):
 
 
 class LoginView(APIView): # 로그인 관련 뷰
+    @swagger_auto_schema(tags=['로그인 기능'], request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'userID': openapi.Schema(type=openapi.TYPE_STRING, description='userID'),
+            'password': openapi.Schema(type=openapi.TYPE_STRING, description='password'),
+        },
+        required=['userID', 'password']
+    ), responses={200: 'Success'})
+    
     def post(self, request):
         userID = request.data.get("userID")
         password = request.data.get("password")
@@ -31,7 +42,14 @@ class LoginView(APIView): # 로그인 관련 뷰
             login(request, user)
             token, _ = Token.objects.get_or_create(user=user)
 
-            return Response({"message": "로그인 성공",'token':token.key}, status=200)
+            return Response({"message": "로그인 성공",
+                             'token':token.key,
+                             'id':user.userID,
+                             '회원종류':user.user_type,
+                             '이름':user.user_name,
+                             '전화번호':user.user_phonenum,
+                             '주소':user.user_address,
+                             '성별_1남자_2여자':user.user_gender}, status=200)
             
         
         else:
@@ -40,10 +58,22 @@ class LoginView(APIView): # 로그인 관련 뷰
         
         
 class SignupView(APIView):
+    @swagger_auto_schema(tags=['회원가입기능'], request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'userID': openapi.Schema(type=openapi.TYPE_STRING, description='userID'),
+            'password': openapi.Schema(type=openapi.TYPE_STRING, description='password'),
+            'user_type': openapi.Schema(type=openapi.TYPE_INTEGER, description='user_type'),
+            'user_name': openapi.Schema(type=openapi.TYPE_STRING, description='user_name'),
+            'user_phonenum': openapi.Schema(type=openapi.TYPE_STRING, description='user_phonenum'),
+            'user_address': openapi.Schema(type=openapi.TYPE_STRING, description='user_address'),
+            'user_gender': openapi.Schema(type=openapi.TYPE_INTEGER, description='user_gender'),
+            
+        },
+        required=['userID', 'password', 'user_type', 'user_name', 'user_phonenum', 'user_address', 'user_gender']
+    ), responses={200: 'Success'})
+
     def post(self, request):
-        
-        
-        
         user = User.objects.create_user(
             userID = request.data.get("userID"),
             password = request.data.get("password"),
