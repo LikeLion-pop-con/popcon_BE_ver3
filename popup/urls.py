@@ -59,6 +59,7 @@ urlpatterns = [
     path('popuplist/willopen',willOpenPopup_listView.as_view()),
     path('search/<str:search_name>',SearchView.as_view(),name='search_name'),
     path('popupplace/<int:pkey>',PopupPlaceView.as_view(),name='pkey'),
+    
 
     
     # Swagger url

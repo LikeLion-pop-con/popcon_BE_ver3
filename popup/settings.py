@@ -155,6 +155,7 @@ CSRF_TRUSTED_ORIGINS = (
     'https://popcon.store',
 
     #ddd
+    #222
 )
 
 CORS_ALLOW_HEADERS = (
