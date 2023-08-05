@@ -150,6 +150,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = (
     'http://43.200.175.239:8000',
+    'http://13.125.44.159:8000',
     'https://heartgold.store',
     'https://popcon.store',
 )
