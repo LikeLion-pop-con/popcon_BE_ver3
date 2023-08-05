@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-_ow=8xg1si44w+lcz@fk*x=xc4q6ld7n$tw4k7*k&8adwqa4&m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['popcon.store']
+#ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders', # cors오류 pip install django-cors-headers 추가
     'brand',
     'popup_place',
+    'rest_framework_swagger',
 
 ]
 
