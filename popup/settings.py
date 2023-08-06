@@ -38,11 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders', # cors오류 pip install django-cors-headers 추가
+
     'user',
     'rest_framework',
     'rest_framework.authtoken', # 토큰유지?
     'drf_yasg',
-    'corsheaders', # cors오류 pip install django-cors-headers 추가
     'brand',
     'popup_place',
     'rest_framework_swagger',
@@ -149,7 +150,7 @@ CORS_ORIGIN_ALLOW_ALL = True # cors 오류
 # ]
 CSRF_COOKIE_SECURE=False
 
-CORS_ALLOW_CREDENTIALS = False
+CORS_ALLOW_CREDENTIALS = True
 
 
 SWAGGER_SETTINGS = {
