@@ -140,8 +140,6 @@ AUTH_USER_MODEL = 'user.User'
 
 CORS_ORIGIN_ALLOW_ALL = True # cors 오류 
 
-
-
 # CORS_ALLOWED_ORIGINS = [ # 특정 출처만 허용하려면, CORS_ALLOWED_ORIGINS 설정에 허용할 출처 리스트를 추가합니다.
 #     "https://example.com",
 #     "https://sub.example.com",
@@ -160,36 +158,34 @@ SWAGGER_SETTINGS = {
 }
 
 
-# CSRF_TRUSTED_ORIGINS = (
-#     'http://43.200.175.239:8000',
-#     'http://13.125.44.159:8000',
-#     'https://heartgold.store',
-#     'https://popcon.store',
+CSRF_TRUSTED_ORIGINS = (
+    'http://43.200.175.239:8000',
+    'http://13.125.44.159:8000',
+    'https://heartgold.store',
+    'https://popcon.store',
 
-#     #ddd
-#     #222
-# )
+)
 
-# CORS_ALLOW_HEADERS = (
-#     'access-control-allow-credentials',
-#     'access-control-allow-origin',
-#     'access-control-request-method',
-#     'access-control-request-headers',
-#     'accept',
-#     'accept-encoding',
-#     'accept-language',
-#     'authorization',
-#     'connection',
-#     'content-type',
-#     'dnt',
-#     'credentials',
-#     'host',
-#     'origin',
-#     'user-agent',
-#     'X-CSRFToken',
-#     'csrftoken',
-#     'x-requested-with',
-# )
+CORS_ALLOW_HEADERS = (
+    'access-control-allow-credentials',
+    'access-control-allow-origin',
+    'access-control-request-method',
+    'access-control-request-headers',
+    'accept',
+    'accept-encoding',
+    'accept-language',
+    'authorization',
+    'connection',
+    'content-type',
+    'dnt',
+    'credentials',
+    'host',
+    'origin',
+    'user-agent',
+    'X-CSRFToken',
+    'csrftoken',
+    'x-requested-with',
+)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
