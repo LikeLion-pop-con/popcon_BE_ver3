@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path,include,re_path
 from user import views
 from brand.views import AllPopup_listView ,willOpenPopup_listView,OpenedPopup_listView,SearchView
-from brand.views import CategoryPopup_listView,CategoryPopuping_listView
+from brand.views import CategoryPopup_listView,CategoryPopuping_listView,NewBrand_listView,HotPopup_listView
 from popup_place.views import PopupPlaceView
 
 
@@ -58,6 +58,8 @@ urlpatterns = [
     path('main/<int:input>',CategoryPopup_listView.as_view(),name='input'),#팝업카테고리로+진행중인팝업
     path('main/<int:input>/ing',CategoryPopuping_listView.as_view(),name='input'),#팝업카테고리로+신청중인팝업
     
+    path('main/newbrand',NewBrand_listView.as_view()), #새로운 브랜드 
+    path('main/hotpopup',HotPopup_listView.as_view()), #인기팝업리스트
 
     
 
