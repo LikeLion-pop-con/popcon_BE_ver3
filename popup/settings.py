@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-_ow=8xg1si44w+lcz@fk*x=xc4q6ld7n$tw4k7*k&8adwqa4&m
 DEBUG = True
 
 #ALLOWED_HOSTS = ['popcon.store']
-#ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'popcon.store']
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'popcon.store']
 
 # Application definition
 
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',# cors오류 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,7 +58,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',# cors오류 
 ]
 
 ROOT_URLCONF = 'popup.urls'
@@ -137,7 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.User'
 
-CORS_ALLOW_ALL_ORIGINS = True # cors 오류 
+CORS_ORIGIN_ALLOW_ALL = True # cors 오류 
 
 
 
@@ -147,40 +147,48 @@ CORS_ALLOW_ALL_ORIGINS = True # cors 오류
 #     "http://localhost:8080",
 #     "http://127.0.0.1:9000"
 # ]
-CSRF_COOKIE_SECURE=True
+CSRF_COOKIE_SECURE=False
 
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = False
 
-CSRF_TRUSTED_ORIGINS = (
-    'http://43.200.175.239:8000',
-    'http://13.125.44.159:8000',
-    'https://heartgold.store',
-    'https://popcon.store',
 
-    #ddd
-    #222
-)
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'scheme' : 'https',
+    },
+}
 
-CORS_ALLOW_HEADERS = (
-    'access-control-allow-credentials',
-    'access-control-allow-origin',
-    'access-control-request-method',
-    'access-control-request-headers',
-    'accept',
-    'accept-encoding',
-    'accept-language',
-    'authorization',
-    'connection',
-    'content-type',
-    'dnt',
-    'credentials',
-    'host',
-    'origin',
-    'user-agent',
-    'X-CSRFToken',
-    'csrftoken',
-    'x-requested-with',
-)
+
+# CSRF_TRUSTED_ORIGINS = (
+#     'http://43.200.175.239:8000',
+#     'http://13.125.44.159:8000',
+#     'https://heartgold.store',
+#     'https://popcon.store',
+
+#     #ddd
+#     #222
+# )
+
+# CORS_ALLOW_HEADERS = (
+#     'access-control-allow-credentials',
+#     'access-control-allow-origin',
+#     'access-control-request-method',
+#     'access-control-request-headers',
+#     'accept',
+#     'accept-encoding',
+#     'accept-language',
+#     'authorization',
+#     'connection',
+#     'content-type',
+#     'dnt',
+#     'credentials',
+#     'host',
+#     'origin',
+#     'user-agent',
+#     'X-CSRFToken',
+#     'csrftoken',
+#     'x-requested-with',
+# )
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
