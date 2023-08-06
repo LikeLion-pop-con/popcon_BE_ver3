@@ -27,6 +27,8 @@ class Popup(models.Model):
 
     popup_category=models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
+    popup_detailplace=models.CharField(verbose_name='실제위치',null=True,max_length=50)
+
     Seoul = models.IntegerField(verbose_name='서울특별시', default=0)
     Busan = models.IntegerField(verbose_name='부산광역시', default=0)
     Incheon = models.IntegerField(verbose_name='인천광역시', default=0)

@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path,include,re_path
 from user import views
 from brand.views import AllPopup_listView ,willOpenPopup_listView,OpenedPopup_listView,SearchView
-from brand.views import CategoryPopup_listView
+from brand.views import CategoryPopup_listView,CategoryPopuping_listView
 from popup_place.views import PopupPlaceView
 
 
@@ -53,10 +53,16 @@ urlpatterns = [
     path('login/',LoginView.as_view()),
     path('myinfo/',MyInfo.as_view()),
     path('logout/',LogoutView.as_view()),
+
+
+    path('main/<int:input>',CategoryPopup_listView.as_view(),name='input'),#팝업카테고리로+진행중인팝업
+    path('main/<int:input>/ing',CategoryPopuping_listView.as_view(),name='input'),#팝업카테고리로+신청중인팝업
+    
+
     
 
     path('popuplist/all',AllPopup_listView.as_view()),
-    path('main/<int:input>',CategoryPopup_listView.as_view(),name='input'),#카테고리 리스트
+    
     path('popuplist/opened',OpenedPopup_listView.as_view()),
     path('popuplist/willopen',willOpenPopup_listView.as_view()),
     path('search/<str:search_name>',SearchView.as_view(),name='search_name'),
