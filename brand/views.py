@@ -98,3 +98,19 @@ class CategoryPopuping_listView(APIView):
             popups=Popup.objects.filter(popup_category=8,popup_state=2)#클래스
             popuplistSerializer=PopupSerializer(popups,many=True)
             return Response(popuplistSerializer.data,status=200)
+        
+
+class NewBrand_listView(APIView):
+    @swagger_auto_schema(tags=['새로운브랜드 list'])
+    def get(self,request):
+        brands=Brand.objects.all().order_by('-brand_borndate')
+        brandlistSerializer=BrandSerializer(brands,many=True)
+        return Response(brandlistSerializer.data,status=200)
+
+
+class HotPopup_listView(APIView):
+    @swagger_auto_schema(tags=['예매가능인기팝업 list'])
+    def get(self,request):
+        popups=Popup.objects.filter(popup_state=2).order_by('-popup_like')
+        popuplistSerializer=PopupSerializer(popups,many=True)
+        return Response(popuplistSerializer.data,status=200)
