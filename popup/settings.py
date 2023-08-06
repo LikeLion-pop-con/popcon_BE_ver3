@@ -155,7 +155,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
-        'scheme' : 'https',
+        'scheme': ['http', 'https'],
     },
 }
 
