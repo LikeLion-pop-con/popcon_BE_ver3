@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path,include,re_path
 from user import views
 from brand.views import AllPopup_listView ,willOpenPopup_listView,OpenedPopup_listView,SearchView
-from brand.views import CategoryPopup_listView
+from brand.views import CategoryPopup_listView,CategoryPopuping_listView,NewBrand_listView,HotPopup_listView
 from popup_place.views import PopupPlaceView
 
 
@@ -28,6 +28,7 @@ from user.views import *
 from rest_framework.permissions import AllowAny
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from django.views.static import serve
 
 #image
 from django.conf import settings
@@ -45,25 +46,36 @@ schema_view = get_schema_view(
 )
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),    
     path('signup/',SignupView.as_view()),
     path('login/',LoginView.as_view()),
     path('myinfo/',MyInfo.as_view()),
     path('logout/',LogoutView.as_view()),
+
+
+    path('main/<int:input>',CategoryPopup_listView.as_view(),name='input'),#팝업카테고리로+진행중인팝업
+    path('main/<int:input>/ing',CategoryPopuping_listView.as_view(),name='input'),#팝업카테고리로+신청중인팝업
+    
+    path('main/newbrand',NewBrand_listView.as_view()), #새로운 브랜드 
+    path('main/hotpopup',HotPopup_listView.as_view()), #인기팝업리스트
+
     
 
     path('popuplist/all',AllPopup_listView.as_view()),
-    path('main/<int:input>',CategoryPopup_listView.as_view(),name='input'),#카테고리 리스트
+    
     path('popuplist/opened',OpenedPopup_listView.as_view()),
     path('popuplist/willopen',willOpenPopup_listView.as_view()),
     path('search/<str:search_name>',SearchView.as_view(),name='search_name'),
     path('popupplace/<int:pkey>',PopupPlaceView.as_view(),name='pkey'),
+    
 
     
     # Swagger url
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    
+    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # image
 

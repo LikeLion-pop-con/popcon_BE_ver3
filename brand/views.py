@@ -9,6 +9,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import PopupSerializer,BrandSerializer
 
+from drf_yasg import openapi 
+from drf_yasg.utils import swagger_auto_schema
+
 class AllPopup_listView(APIView):
     def get(self,request):
         all_popup_list=Popup.objects.all()
@@ -22,14 +25,11 @@ class OpenedPopup_listView(APIView):
         popuplistSerializer=PopupSerializer(opened_popup_list,many=True)
         return Response(popuplistSerializer.data,status=200)
 
-
 class willOpenPopup_listView(APIView):
     def get(self,request):
         willopen_popup_list=Popup.objects.filter(popup_state=2)
         popuplistSerializer=PopupSerializer(willopen_popup_list,many=True)
         return Response(popuplistSerializer.data,status=200)
-
-
 
 class SearchView(APIView):
     def get(self, request, search_name):
@@ -52,20 +52,65 @@ class SearchView(APIView):
         
 
 class CategoryPopup_listView(APIView):
+    @swagger_auto_schema(tags=['팝업카테고리_1,2,3,4 _진행중인팝업'])
     def get(self,request,input):
         if input==1:
-            popups=Popup.objects.filter(popup_category=5)#스토어
+            popups=Popup.objects.filter(popup_category=5,popup_state=1)#스토어
             popuplistSerializer=PopupSerializer(popups,many=True)
             return Response(popuplistSerializer.data,status=200)
+        
         elif input==2:
-            popups=Popup.objects.filter(popup_category=6)#갤러리
+            popups=Popup.objects.filter(popup_category=6,popup_state=1)#갤러리
             popuplistSerializer=PopupSerializer(popups,many=True)
             return Response(popuplistSerializer.data,status=200)
+        
         elif input==3:
-            popups=Popup.objects.filter(popup_category=7)#스테이지
+            popups=Popup.objects.filter(popup_category=7,popup_state=1)#스테이지
             popuplistSerializer=PopupSerializer(popups,many=True)
             return Response(popuplistSerializer.data,status=200)
+        
         elif input==4:
-            popups=Popup.objects.filter(popup_category=8)#클래스
+            popups=Popup.objects.filter(popup_category=8,popup_state=1)#클래스
             popuplistSerializer=PopupSerializer(popups,many=True)
             return Response(popuplistSerializer.data,status=200)
+        
+
+
+class CategoryPopuping_listView(APIView):
+    @swagger_auto_schema(tags=['팝업카테고리_1,2,3,4 _신청중인팝업'])
+    def get(self,request,input):
+        if input==1:
+            popups=Popup.objects.filter(popup_category=5,popup_state=2)#스토어
+            popuplistSerializer=PopupSerializer(popups,many=True)
+            return Response(popuplistSerializer.data,status=200)
+        
+        elif input==2:
+            popups=Popup.objects.filter(popup_category=6,popup_state=2)#갤러리
+            popuplistSerializer=PopupSerializer(popups,many=True)
+            return Response(popuplistSerializer.data,status=200)
+        
+        elif input==3:
+            popups=Popup.objects.filter(popup_category=7,popup_state=2)#스테이지
+            popuplistSerializer=PopupSerializer(popups,many=True)
+            return Response(popuplistSerializer.data,status=200)
+        
+        elif input==4:
+            popups=Popup.objects.filter(popup_category=8,popup_state=2)#클래스
+            popuplistSerializer=PopupSerializer(popups,many=True)
+            return Response(popuplistSerializer.data,status=200)
+        
+
+class NewBrand_listView(APIView):
+    @swagger_auto_schema(tags=['새로운브랜드 list'])
+    def get(self,request):
+        brands=Brand.objects.all().order_by('-brand_borndate')
+        brandlistSerializer=BrandSerializer(brands,many=True)
+        return Response(brandlistSerializer.data,status=200)
+
+
+class HotPopup_listView(APIView):
+    @swagger_auto_schema(tags=['예매가능인기팝업 list'])
+    def get(self,request):
+        popups=Popup.objects.filter(popup_state=2).order_by('-popup_like')
+        popuplistSerializer=PopupSerializer(popups,many=True)
+        return Response(popuplistSerializer.data,status=200)

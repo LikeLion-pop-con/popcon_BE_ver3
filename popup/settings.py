@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-_ow=8xg1si44w+lcz@fk*x=xc4q6ld7n$tw4k7*k&8adwqa4&m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#ALLOWED_HOSTS = ['popcon.store']
 ALLOWED_HOSTS = ['*']
-
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'popcon.store']
 
 # Application definition
 
@@ -37,17 +38,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders', # cors오류 pip install django-cors-headers 추가
+
     'user',
     'rest_framework',
     'rest_framework.authtoken', # 토큰유지?
     'drf_yasg',
-    'corsheaders', # cors오류 pip install django-cors-headers 추가
     'brand',
     'popup_place',
+    'rest_framework_swagger',
 
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',# cors오류 무조건 맨위에 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,7 +59,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',# cors오류 
 ]
 
 ROOT_URLCONF = 'popup.urls'
@@ -124,7 +127,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR ,'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -134,9 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.User'
 
-CORS_ALLOW_ALL_ORIGINS = True # cors 오류 
-
-
+CORS_ORIGIN_ALLOW_ALL = True # cors 오류 
 
 # CORS_ALLOWED_ORIGINS = [ # 특정 출처만 허용하려면, CORS_ALLOWED_ORIGINS 설정에 허용할 출처 리스트를 추가합니다.
 #     "https://example.com",
@@ -144,15 +146,27 @@ CORS_ALLOW_ALL_ORIGINS = True # cors 오류
 #     "http://localhost:8080",
 #     "http://127.0.0.1:9000"
 # ]
-CSRF_COOKIE_SECURE=True
+CSRF_COOKIE_SECURE=False
 
 CORS_ALLOW_CREDENTIALS = True
+
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'scheme': ['http', 'https'],
+    },
+}
+
 
 CSRF_TRUSTED_ORIGINS = (
     'http://43.200.175.239:8000',
     'http://43.200.181.77:8000',
     'https://heartgold.store',
     'https://popcon.store',
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07e9ae7226e3a41b333f9504a5d4323fdf2dcf23
 )
 
 CORS_ALLOW_HEADERS = (
