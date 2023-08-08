@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .models import Popup,Brand
+from user.models import *
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -114,3 +115,35 @@ class HotPopup_listView(APIView):
         popups=Popup.objects.filter(popup_state=2).order_by('-popup_like')
         popuplistSerializer=PopupSerializer(popups,many=True)
         return Response(popuplistSerializer.data,status=200)
+    
+
+class BrandLike_View(APIView):
+    @swagger_auto_schema(tags=['브랜드 좋아요'], request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'brand_name': openapi.Schema(type=openapi.TYPE_STRING, description='brand_name'),
+            'user_name': openapi.Schema(type=openapi.TYPE_STRING, description='user_name'),
+        },
+        required=['brand_name', 'user_name']
+    ), responses={200: 'Success'})
+
+    def post(self, request):
+        brand = Brand.objects.get(brand_name = request.data.get("brand_name"))         
+        user = User.objects.get(user_name=request.data.get("user_name"))
+        if user in brand.brand_like_people.all():
+            brand.brand_like_people.remove(user)
+            brand.save()
+        else:
+            brand.brand_like_people.add(user)
+            brand.save()
+        return Response({"message":brand.brand_like_people.count()})
+    
+class MyBrandLikeList(APIView):
+    @swagger_auto_schema(tags=['내가 좋아요한 브랜드'])
+
+    def get(self, request):
+        user = User.objects.get(user_name=request.data.get("user_name"))
+        brand_list = user.brands
+        brand_serializer = BrandSerializer(brand_list, many=True)
+        return Response(brand_serializer.data, status=200)
+    

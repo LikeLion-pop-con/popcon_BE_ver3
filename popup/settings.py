@@ -163,10 +163,6 @@ CSRF_TRUSTED_ORIGINS = (
     'http://43.200.181.77:8000',
     'https://heartgold.store',
     'https://popcon.store',
-<<<<<<< HEAD
-=======
-
->>>>>>> 07e9ae7226e3a41b333f9504a5d4323fdf2dcf23
 )
 
 CORS_ALLOW_HEADERS = (

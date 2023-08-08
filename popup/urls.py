@@ -17,8 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include,re_path
 from user import views
-from brand.views import AllPopup_listView ,willOpenPopup_listView,OpenedPopup_listView,SearchView
-from brand.views import CategoryPopup_listView,CategoryPopuping_listView,NewBrand_listView,HotPopup_listView
+from brand.views import *
+
 from popup_place.views import PopupPlaceView
 
 
@@ -61,9 +61,13 @@ urlpatterns = [
     path('main/newbrand',NewBrand_listView.as_view()), #새로운 브랜드 
     path('main/hotpopup',HotPopup_listView.as_view()), #인기팝업리스트
 
+    path('brandlike/',BrandLike_View.as_view()), #브랜드 좋아요 누르기
+    path('mylikebrand/',MyBrandLikeList.as_view()),#내가 좋아요 누른 브랜드
     
 
     path('popuplist/all',AllPopup_listView.as_view()),
+    
+
     
     path('popuplist/opened',OpenedPopup_listView.as_view()),
     path('popuplist/willopen',willOpenPopup_listView.as_view()),
@@ -76,6 +80,7 @@ urlpatterns = [
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    re_path(r'^image/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # image
 

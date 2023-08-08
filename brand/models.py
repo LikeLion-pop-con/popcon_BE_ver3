@@ -1,10 +1,15 @@
 from django.db import models
+from user.models import User
 
 class Brand(models.Model):
     brand_name = models.CharField(verbose_name='기업이름',max_length=50)
     brand_intro=models.TextField(verbose_name='기업소개')
     brand_borndate=models.DateField (verbose_name='생성날짜', auto_now = False , auto_now_add = False )
     brand_subcounts=models.IntegerField(verbose_name='구독수',default=0)
+
+    brand_like_people = models.ManyToManyField(User,blank=True, related_name="brands")
+    
+
     def __str__(self):
         return self.brand_name
 
