@@ -64,11 +64,13 @@ urlpatterns = [
     path('brandlike/',BrandLike_View.as_view()), #브랜드 좋아요 누르기
     path('mylikebrand/',MyBrandLikeList.as_view()),#내가 좋아요 누른 브랜드
     
+    path('popuplike/',PopupLike_View.as_view()), #팝업 좋아요 누르기
+
 
     path('popuplist/all',AllPopup_listView.as_view()),
     
 
-    
+
     path('popuplist/opened',OpenedPopup_listView.as_view()),
     path('popuplist/willopen',willOpenPopup_listView.as_view()),
     path('search/<str:search_name>',SearchView.as_view(),name='search_name'),
