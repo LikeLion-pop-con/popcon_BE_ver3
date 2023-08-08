@@ -139,39 +139,66 @@ class BrandLike_View(APIView):
         return Response({"message":brand.brand_like_people.count()})
     
 class MyBrandLikeList(APIView):
+    user_name= openapi.Parameter('user_name', openapi.IN_QUERY, description='이름', required=True, type=openapi.TYPE_STRING)
     @swagger_auto_schema(tags=['내가 좋아요한 브랜드'])
     def get(self, request):
-        user = User.objects.get(user_name=request.data.get("user_name"))
+        user_name1 = request.GET.get("user_name")
+        user = User.objects.get(user_name=user_name1)
         brand_list = user.brands
         brand_serializer = BrandSerializer(brand_list, many=True)
+
         return Response(brand_serializer.data, status=200)
 
 
 
-class PopupLike_View(APIView):
-    @swagger_auto_schema(tags=['팝업 좋아요'], request_body=openapi.Schema(
-        type=openapi.TYPE_OBJECT,
-        properties={
-            'popup_name': openapi.Schema(type=openapi.TYPE_STRING, description='popup_name'),
-            'user_name': openapi.Schema(type=openapi.TYPE_STRING, description='user_name'),
-        },
-        required=['popup_name', 'user_name']
-    ), responses={200: 'Success'})
+# class PopupLike_View(APIView):
 
-    def post(self, request):
-        popup = Popup.objects.get(popup_name = request.data.get("popup_name"))         
-        user = User.objects.get(user_name=request.data.get("user_name"))
+#     def post(self, request):
+#         popup = Popup.objects.get(popup_name = request.data.get("popup_name"))         
+#         user = User.objects.get(user_name=request.data.get("user_name"))
     
-        if user in popup.popup_like_people.all():
-            popup.popup_like_people.remove(user)
-            popup.save()
-            print('나옴')
+#         if user in popup.popup_like_people.all():
+#             popup.popup_like_people.remove(user)
+#             if '서울특별시' in user.user_address:
+#                 popup.Seoul-=1
+#                 popup.save()
+#             if '부산광역시' in user.user_address:
+#                 popup.Busan-=1
+#                 popup.save()
+#             if '인천광역시' in user.user_address:
+#                 popup.Gyeonggi_Province-=1
+#                 popup.save()
+#             if '대구광역시' in user.user_address:
+#                 popup.Gyeonggi_Province-=1
+#                 popup.save()
+#             if '대전광역시' in user.user_address:
+#                 popup.Gyeonggi_Province-=1
+#                 popup.save()
+#             if '경기도' in user.user_address:
+#                 popup.Gyeonggi_Province-=1
+#                 popup.save()    
+#             if '경기도' in user.user_address:
+#                 popup.Gyeonggi_Province-=1
+#                 popup.save()
+#             if '경기도' in user.user_address:
+#                 popup.Gyeonggi_Province-=1
+#                 popup.save()
+#             if '경기도' in user.user_address:
+#                 popup.Gyeonggi_Province-=1
+#                 popup.save()
+#             if '경기도' in user.user_address:
+#                 popup.Gyeonggi_Province-=1
+#                 popup.save()
+#             if '경기도' in user.user_address:
+#                 popup.Gyeonggi_Province-=1
+#                 popup.save()
+#             if '경기도' in user.user_address:
+#                 popup.Gyeonggi_Province-=1
+#                 popup.save()
 
-            if '경기도' in user.user_address:
-                popup.Gyeonggi_Province+1
-                print('나옴')
-                
-        else:
-            popup.popup_like_people.add(user)
-            popup.save()
-        return Response({"message":popup.popup_like_people.count()})
+
+
+#         else:
+#             popup.popup_like_people.add(user)
+#             popup.save()
+#         return Response({"message":popup.popup_like_people.count()})
