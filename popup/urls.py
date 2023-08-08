@@ -61,9 +61,13 @@ urlpatterns = [
     path('main/newbrand',NewBrand_listView.as_view()), #새로운 브랜드 
     path('main/hotpopup',HotPopup_listView.as_view()), #인기팝업리스트
 
-    path('brandlike/',BrandLike_View.as_view()),
+    path('brandlike/',BrandLike_View.as_view()), #브랜드 좋아요 누르기
+    path('mylikebrand/',MyBrandLikeList.as_view()),#내가 좋아요 누른 브랜드
+    
 
     path('popuplist/all',AllPopup_listView.as_view()),
+    
+
     
     path('popuplist/opened',OpenedPopup_listView.as_view()),
     path('popuplist/willopen',willOpenPopup_listView.as_view()),

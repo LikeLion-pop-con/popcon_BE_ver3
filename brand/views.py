@@ -117,7 +117,6 @@ class HotPopup_listView(APIView):
         return Response(popuplistSerializer.data,status=200)
     
 
-
 class BrandLike_View(APIView):
     @swagger_auto_schema(tags=['브랜드 좋아요'], request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
@@ -129,7 +128,7 @@ class BrandLike_View(APIView):
     ), responses={200: 'Success'})
 
     def post(self, request):
-        brand = Brand.objects.get(brand_name = request.data.get("brand_name"))        
+        brand = Brand.objects.get(brand_name = request.data.get("brand_name"))         
         user = User.objects.get(user_name=request.data.get("user_name"))
         if user in brand.brand_like_people.all():
             brand.brand_like_people.remove(user)
@@ -138,4 +137,16 @@ class BrandLike_View(APIView):
             brand.brand_like_people.add(user)
             brand.save()
         return Response({"message":brand.brand_like_people.count()})
+    
+class MyBrandLikeList(APIView):
+    @swagger_auto_schema(tags=['내가 좋아한 브랜드 리스트'])
+
+    # @swagger_auto_schema(tags=['내가 좋아요한 브랜드 리스트'], manual_parameters=[
+    #     openapi.Parameter('user_name', openapi.IN_QUERY, type=openapi.TYPE_STRING, description='user_name', required=True),
+    # ], responses={200: 'Success'})
+    def get(self, request):
+        user = User.objects.get(user_name=request.data.get("user_name"))
+        brand_list = user.brands
+        brand_serializer = BrandSerializer(brand_list, many=True)
+        return Response(brand_serializer.data, status=200)
     
