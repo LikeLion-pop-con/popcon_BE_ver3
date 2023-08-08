@@ -7,7 +7,7 @@ class Brand(models.Model):
     brand_borndate=models.DateField (verbose_name='생성날짜', auto_now = False , auto_now_add = False )
     brand_subcounts=models.IntegerField(verbose_name='구독수',default=0)
 
-    brand_like_people = models.ManyToManyField(User,blank=True, related_name="Brand_like_table")
+    brand_like_people = models.ManyToManyField(User,blank=True, related_name="brands")
     
 
     def __str__(self):
