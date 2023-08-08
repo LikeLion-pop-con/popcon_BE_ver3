@@ -19,7 +19,7 @@ from django.urls import path,include,re_path
 from user import views
 from brand.views import *
 
-from popup_place.views import PopupPlaceView
+from popup_place.views import PopupPlaceView,PopupPlaceLike_View
 
 
 from user.views import *
@@ -73,7 +73,7 @@ urlpatterns = [
     path('popuplist/willopen',willOpenPopup_listView.as_view()),
     path('search/<str:search_name>',SearchView.as_view(),name='search_name'),
     path('popupplace/<int:pkey>',PopupPlaceView.as_view(),name='pkey'),
-    
+    path('popupplacelike',PopupPlaceLike_View.as_view()),
 
     
     # Swagger url

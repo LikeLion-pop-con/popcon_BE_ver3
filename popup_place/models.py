@@ -1,5 +1,5 @@
 from django.db import models
-
+from user.models import User
 
 class PopupPlace(models.Model):
     popup_place_image=models.ImageField (verbose_name='팝업공간사진', blank=True, null=True)
@@ -16,5 +16,9 @@ class PopupPlace(models.Model):
     freight=models.IntegerField(verbose_name='화물 E/V',default=0)
     parking=models.IntegerField(verbose_name='주차지원',default=0)
     pkey = models.IntegerField(verbose_name='팝업공간pk',default=0)
+    
+    
+    popup_place_like_people = models.ManyToManyField(User,blank=True, related_name="popupplace")
+    
     def __str__(self):
         return self.popup_place_title
