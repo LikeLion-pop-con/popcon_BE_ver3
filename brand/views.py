@@ -174,6 +174,7 @@ class PopupLike_View(APIView):
     
         if user in popup.popup_like_people.all():
             popup.popup_like_people.remove(user)
+            popup.popup_like -=1
             if '서울특별시' in user.user_address:
                 popup.Seoul -= 1
             elif '부산광역시' in user.user_address:
@@ -211,6 +212,7 @@ class PopupLike_View(APIView):
             popup.save()
         else:
             popup.popup_like_people.add(user)
+            popup.popup_like +=1
             if '서울특별시' in user.user_address:
                 popup.Seoul += 1
             elif '부산광역시' in user.user_address:
@@ -246,7 +248,7 @@ class PopupLike_View(APIView):
             elif '제주특별자치도' in user.user_address:
                 popup.Jeju_Special_Self_Governing_Province += 1
             popup.save()
-        return Response({"message":popup.popup_like_people.count()})
+        return Response({"mylikestate":popup.popup_like_people.count(),"total_like":popup.popup_like})
     
 
 class MyPopupLikeList(APIView):
