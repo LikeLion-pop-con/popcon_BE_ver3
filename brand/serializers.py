@@ -1,29 +1,29 @@
 from rest_framework import serializers
 from .models import *
 
-class BrandImageSerializer(serializers.ModelSerializer):
+# class BrandImageSerializer(serializers.ModelSerializer):
     
-    image = serializers.ImageField(use_url=True)
+#     image = serializers.ImageField(use_url=True)
     
-    class Meta:
-        model = BrandImage
-        fields = ['image']
+#     class Meta:
+#         model = BrandImage
+#         fields = ['image']
 
 class BrandSerializer(serializers.ModelSerializer):
     
-    images = BrandImageSerializer(many=True, read_only=True,source='brandimage.set')
+    #images = BrandImageSerializer(many=True, read_only=True,source='brandimage.set')
     class Meta:
         model = Brand
         fields = '__all__'
         
         
-    def create(self,validated_data):
-        images_data = self.context['request'].FILES
-        brand = Brand.objects.create(**validated_data)
-        for image_data in images_data.getlist('image'):
-            BrandImage.objects.create(brand=brand,image=image_data)
+    # def create(self,validated_data):
+    #     images_data = self.context['request'].FILES
+    #     brand = Brand.objects.create(**validated_data)
+    #     for image_data in images_data.getlist('image'):
+    #         BrandImage.objects.create(brand=brand,image=image_data)
             
-        return brand        
+    #     return brand        
 # class BrandSerializer(serializers.ModelSerializer):
 #     images = serializers.SerializerMethodField()
     
