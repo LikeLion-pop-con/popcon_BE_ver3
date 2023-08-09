@@ -260,3 +260,15 @@ class MyPopupLikeList(APIView):
         popup_list = user.popups
         popup_serializer = PopupSerializer(popup_list, many=True)
         return Response(popup_serializer.data, status=200)
+    
+class PopupInfoView(APIView):
+    id_param = openapi.Parameter('id', openapi.IN_QUERY, description='팝업 id', required=True, type=openapi.TYPE_INTEGER)
+    @swagger_auto_schema(tags=['팝업정보_쿼리로 사용 id=팝업id'], manual_parameters=[id_param])
+    
+    # id= openapi.Parameter('id', openapi.IN_QUERY, description='id', required=True, type=openapi.TYPE_INTEGER)
+    # @swagger_auto_schema(tags=['팝업정보_쿼리로 사용 id=팝업id'])
+    def get(self, request):
+        popup_id1 = request.GET.get('id')
+        popup=Popup.objects.get(id=popup_id1)
+        popup_serializer = PopupSerializer(popup)
+        return Response(popup_serializer.data, status=200)

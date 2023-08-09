@@ -66,6 +66,9 @@ urlpatterns = [
     
     path('popuplike/',PopupLike_View.as_view()), #팝업 좋아요 누르기
     path('mylikepopup/',MyPopupLikeList.as_view()), #내가 좋아요 누른 팝업
+
+    path('popupinfo/',PopupInfoView.as_view()), #팝업정보
+
     
     path('brandlist/all',AllBrand_listView.as_view()),
 
