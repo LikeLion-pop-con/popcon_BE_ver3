@@ -13,6 +13,14 @@ from .serializers import PopupSerializer,BrandSerializer
 from drf_yasg import openapi 
 from drf_yasg.utils import swagger_auto_schema
 
+
+
+class AllBrand_listView(APIView):
+    def get(self,request):
+        all_brand_list=Brand.objects.all()
+        brandlistSerializer=BrandSerializer(all_brand_list,many=True)
+        return Response(brandlistSerializer.data,status=200)
+    
 class AllPopup_listView(APIView):
     def get(self,request):
         all_popup_list=Popup.objects.all()

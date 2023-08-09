@@ -6,17 +6,41 @@ class Brand(models.Model):
     brand_intro=models.TextField(verbose_name='기업소개')
     brand_borndate=models.DateField (verbose_name='생성날짜', auto_now = False , auto_now_add = False )
     brand_subcounts=models.IntegerField(verbose_name='구독수',default=0)
-
-    brand_like_people = models.ManyToManyField(User,blank=True, related_name="brands")
     
+    #brand_image=models.ImageField (verbose_name='브랜드이미지', blank=True, null=True)# 브랜드 이미지 추가
 
+    brand_like_people = models.ManyToManyField(User,blank=True, related_name="brands")# 브랜드 좋아요 누른 사람 수
+    
     def __str__(self):
         return self.brand_name
+class BrandImage(models.Model):
+    brand = models.ForeignKey(Brand,on_delete=models.CASCADE)
+    image = models.ImageField(verbose_name='브랜드이미지', blank=True, null=True)
 
 class Category(models.Model):
     name= models.CharField(verbose_name='카테고리',max_length=50)
     def __str__(self):
         return self.name
+
+
+
+
+# 임시로 카테고리 생성 프론트에서 요청시 확정
+# class PopupCategory(models.Model):
+#     name= models.CharField(verbose_name='팝업카테고리',max_length=50)
+#     def __str__(self):
+#         return self.name    
+# class BrandCategory(models.Model):
+#     name= models.CharField(verbose_name='브랜드카테고리',max_length=50)
+#     def __str__(self):
+#         return self.name    
+# class ArtistCategory(models.Model):
+#     name= models.CharField(verbose_name='아티스트카테고리',max_length=50)
+#     def __str__(self):
+#         return self.name    
+
+
+
 
 
 class Popup(models.Model):
@@ -25,20 +49,40 @@ class Popup(models.Model):
     popup_state = models.IntegerField(verbose_name='오픈1_예정2', default=0,null=True)
 
     popup_name=models.CharField(verbose_name='팝업이름',max_length=50)
+    
+    popup_simple_info = models.CharField(verbose_name='간단소개',max_length=150,default='')
+    popup_date = models.CharField(verbose_name='운영기간',max_length=150,default='')
+    popup_time = models.CharField(verbose_name='운영시간',max_length=150,default='')
+    popup_operation = models.CharField(verbose_name='기획/운영',max_length=150,default='')
+    popup_detailplace=models.CharField(verbose_name='팝업장소',null=True,max_length=50)
+    popup_info=models.TextField(verbose_name='팝업내용')
+    popup_add_info = models.CharField(verbose_name='더많은정보',max_length=200,default='')
+    
+    
     popup_opendate=models.DateField (verbose_name='오픈날짜', auto_now = False , auto_now_add = False )
     popup_closedate=models.DateField (verbose_name='마감날짜', auto_now = False , auto_now_add = False )
-
+    
     popup_opentime=models.TimeField (verbose_name='오픈시간',  auto_now = False ,auto_now_add = False)
     popup_closetime=models.TimeField (verbose_name='마감시간',  auto_now = False ,auto_now_add = False)
 
-    popup_info=models.TextField(verbose_name='팝업내용')
-    popup_image=models.ImageField (verbose_name='팝업이미지', blank=True, null=True)
+    
+    popup_main_image=models.ImageField (verbose_name='메인포스터', blank=True, null=True)
+    popup_brand_logo=models.ImageField (verbose_name='브랜드로고', blank=True, null=True)
+    
+    popup_image01=models.ImageField (verbose_name='팝업이미지01', blank=True, null=True)
+    popup_image02=models.ImageField (verbose_name='팝업이미지02', blank=True, null=True)
+    popup_image03=models.ImageField (verbose_name='팝업이미지03', blank=True, null=True)
+    popup_image04=models.ImageField (verbose_name='팝업이미지04', blank=True, null=True)
+    popup_image05=models.ImageField (verbose_name='팝업이미지05', blank=True, null=True)
+    popup_image06=models.ImageField (verbose_name='팝업이미지06', blank=True, null=True)
+    popup_image07=models.ImageField (verbose_name='팝업이미지07', blank=True, null=True)
+    
+    
     popup_like= models.IntegerField(verbose_name='팝업좋아요수', default=0)
 
     popup_category=models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
-    popup_detailplace=models.CharField(verbose_name='실제위치',null=True,max_length=50)
-
+    
     Seoul = models.IntegerField(verbose_name='서울특별시', default=0)
     Busan = models.IntegerField(verbose_name='부산광역시', default=0)
     Incheon = models.IntegerField(verbose_name='인천광역시', default=0)
@@ -57,7 +101,8 @@ class Popup(models.Model):
     Gyeongsangnam_Province = models.IntegerField(verbose_name='경상남도', default=0)
     Jeju_Special_Self_Governing_Province = models.IntegerField(verbose_name='제주특별자치도', default=0)
 
-    popup_like_people = models.ManyToManyField(User,blank=True, related_name="popups")
+
+    popup_like_people = models.ManyToManyField(User,blank=True, related_name="popups") # 팝업 좋아요 수 
 
     def __str__(self):
         return self.popup_name
