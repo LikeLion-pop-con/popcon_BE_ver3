@@ -118,7 +118,7 @@ class HotPopup_listView(APIView):
     
 
 class BrandLike_View(APIView):
-    @swagger_auto_schema(tags=['브랜드 좋아요'], request_body=openapi.Schema(
+    @swagger_auto_schema(tags=['브랜드좋아요'], request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
             'brand_name': openapi.Schema(type=openapi.TYPE_STRING, description='brand_name'),
@@ -140,7 +140,7 @@ class BrandLike_View(APIView):
     
 class MyBrandLikeList(APIView):
     user_name= openapi.Parameter('user_name', openapi.IN_QUERY, description='이름', required=True, type=openapi.TYPE_STRING)
-    @swagger_auto_schema(tags=['내가 좋아요한 브랜드'])
+    @swagger_auto_schema(tags=['내가 좋아요한 브랜드목록_쿼리로 사용 user_name=이름'])
     def get(self, request):
         user_name1 = request.GET.get("user_name")
         user = User.objects.get(user_name=user_name1)
@@ -150,55 +150,103 @@ class MyBrandLikeList(APIView):
         return Response(brand_serializer.data, status=200)
 
 
+class PopupLike_View(APIView):
+    @swagger_auto_schema(tags=['팝업좋아요'], request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            "popup_name": openapi.Schema(type=openapi.TYPE_STRING, description="popup_name"),
+            'user_name': openapi.Schema(type=openapi.TYPE_STRING, description='user_name'),
+        },
+        required=["popup_name", 'user_name']
+    ), responses={200: 'Success'})
 
-# class PopupLike_View(APIView):
-
-#     def post(self, request):
-#         popup = Popup.objects.get(popup_name = request.data.get("popup_name"))         
-#         user = User.objects.get(user_name=request.data.get("user_name"))
+    def post(self, request):
+        popup = Popup.objects.get(popup_name = request.data.get("popup_name"))         
+        user = User.objects.get(user_name=request.data.get("user_name"))
     
-#         if user in popup.popup_like_people.all():
-#             popup.popup_like_people.remove(user)
-#             if '서울특별시' in user.user_address:
-#                 popup.Seoul-=1
-#                 popup.save()
-#             if '부산광역시' in user.user_address:
-#                 popup.Busan-=1
-#                 popup.save()
-#             if '인천광역시' in user.user_address:
-#                 popup.Gyeonggi_Province-=1
-#                 popup.save()
-#             if '대구광역시' in user.user_address:
-#                 popup.Gyeonggi_Province-=1
-#                 popup.save()
-#             if '대전광역시' in user.user_address:
-#                 popup.Gyeonggi_Province-=1
-#                 popup.save()
-#             if '경기도' in user.user_address:
-#                 popup.Gyeonggi_Province-=1
-#                 popup.save()    
-#             if '경기도' in user.user_address:
-#                 popup.Gyeonggi_Province-=1
-#                 popup.save()
-#             if '경기도' in user.user_address:
-#                 popup.Gyeonggi_Province-=1
-#                 popup.save()
-#             if '경기도' in user.user_address:
-#                 popup.Gyeonggi_Province-=1
-#                 popup.save()
-#             if '경기도' in user.user_address:
-#                 popup.Gyeonggi_Province-=1
-#                 popup.save()
-#             if '경기도' in user.user_address:
-#                 popup.Gyeonggi_Province-=1
-#                 popup.save()
-#             if '경기도' in user.user_address:
-#                 popup.Gyeonggi_Province-=1
-#                 popup.save()
+        if user in popup.popup_like_people.all():
+            popup.popup_like_people.remove(user)
+            if '서울특별시' in user.user_address:
+                popup.Seoul -= 1
+            elif '부산광역시' in user.user_address:
+                popup.Busan -= 1
+            elif '인천광역시' in user.user_address:
+                popup.Incheon -= 1
+            elif '대구광역시' in user.user_address:
+                popup.Daegu -= 1
+            elif '대전광역시' in user.user_address:
+                popup.Daejeon -= 1
+            elif '광주광역시' in user.user_address:
+                popup.Gwangju -= 1
+            elif '울산광역시' in user.user_address:
+                popup.Ulsan -= 1
+            elif '세종특별자치시' in user.user_address:
+                popup.Sejong -= 1
+            elif '경기도' in user.user_address:
+                popup.Gyeonggi_Province -= 1
+            elif '강원도' in user.user_address:
+                popup.Gangwon_Province -= 1
+            elif '충청북도' in user.user_address:
+                popup.Chungcheongbuk_Province -= 1
+            elif '충청남도' in user.user_address:
+                popup.Chungcheongnam_Province -= 1
+            elif '전라북도' in user.user_address:
+                popup.Jeollabuk_Province -= 1
+            elif '전라남도' in user.user_address:
+                popup.Jeollanam_Province -= 1
+            elif '경상북도' in user.user_address:
+                popup.Gyeongsangbuk_Province -= 1
+            elif '경상남도' in user.user_address:
+                popup.Gyeongsangnam_Province -= 1
+            elif '제주특별자치도' in user.user_address:
+                popup.Jeju_Special_Self_Governing_Province -= 1
+            popup.save()
+        else:
+            popup.popup_like_people.add(user)
+            if '서울특별시' in user.user_address:
+                popup.Seoul += 1
+            elif '부산광역시' in user.user_address:
+                popup.Busan += 1
+            elif '인천광역시' in user.user_address:
+                popup.Incheon += 1
+            elif '대구광역시' in user.user_address:
+                popup.Daegu += 1
+            elif '대전광역시' in user.user_address:
+                popup.Daejeon += 1
+            elif '광주광역시' in user.user_address:
+                popup.Gwangju += 1
+            elif '울산광역시' in user.user_address:
+                popup.Ulsan += 1
+            elif '세종특별자치시' in user.user_address:
+                popup.Sejong += 1
+            elif '경기도' in user.user_address:
+                popup.Gyeonggi_Province += 1
+            elif '강원도' in user.user_address:
+                popup.Gangwon_Province += 1
+            elif '충청북도' in user.user_address:
+                popup.Chungcheongbuk_Province += 1
+            elif '충청남도' in user.user_address:
+                popup.Chungcheongnam_Province += 1
+            elif '전라북도' in user.user_address:
+                popup.Jeollabuk_Province += 1
+            elif '전라남도' in user.user_address:
+                popup.Jeollanam_Province += 1
+            elif '경상북도' in user.user_address:
+                popup.Gyeongsangbuk_Province += 1
+            elif '경상남도' in user.user_address:
+                popup.Gyeongsangnam_Province += 1
+            elif '제주특별자치도' in user.user_address:
+                popup.Jeju_Special_Self_Governing_Province += 1
+            popup.save()
+        return Response({"message":popup.popup_like_people.count()})
+    
 
-
-
-#         else:
-#             popup.popup_like_people.add(user)
-#             popup.save()
-#         return Response({"message":popup.popup_like_people.count()})
+class MyPopupLikeList(APIView):
+    user_name= openapi.Parameter('user_name', openapi.IN_QUERY, description='이름', required=True, type=openapi.TYPE_STRING)
+    @swagger_auto_schema(tags=['내가 좋아요한 팝업목록_쿼리로 사용 user_name=이름'])
+    def get(self, request):
+        user_name1 = request.GET.get("user_name")
+        user = User.objects.get(user_name=user_name1)
+        popup_list = user.popups
+        popup_serializer = PopupSerializer(popup_list, many=True)
+        return Response(popup_serializer.data, status=200)
