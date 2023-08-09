@@ -57,7 +57,7 @@ class Popup(models.Model):
     Gyeongsangnam_Province = models.IntegerField(verbose_name='경상남도', default=0)
     Jeju_Special_Self_Governing_Province = models.IntegerField(verbose_name='제주특별자치도', default=0)
 
-    popup_like_people = models.ManyToManyField(User,blank=True, related_name="popup")
+    popup_like_people = models.ManyToManyField(User,blank=True, related_name="popups")
 
     def __str__(self):
         return self.popup_name
