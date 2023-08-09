@@ -50,13 +50,13 @@ class Popup(models.Model):
 
     popup_name=models.CharField(verbose_name='팝업이름',max_length=50)
     
-    popup_simple_info = models.CharField(verbose_name='간단소개',max_length=150,default='',null=True)
-    popup_date = models.CharField(verbose_name='운영기간',max_length=150,default='',null=True)
-    popup_time = models.CharField(verbose_name='운영시간',max_length=150,default='',null=True)
-    popup_operation = models.CharField(verbose_name='기획/운영',max_length=150,default='',null=True)
+    popup_simple_info = models.CharField(verbose_name='간단소개',max_length=150,default='',null=True,blank=True)
+    popup_date = models.CharField(verbose_name='운영기간',max_length=150,default='',null=True,blank=True)
+    popup_time = models.CharField(verbose_name='운영시간',max_length=150,default='',null=True,blank=True)
+    popup_operation = models.CharField(verbose_name='기획/운영',max_length=150,default='',null=True,blank=True)
     popup_detailplace=models.CharField(verbose_name='팝업장소',null=True,max_length=50)
     popup_info=models.TextField(verbose_name='팝업내용')
-    popup_add_info = models.CharField(verbose_name='더많은정보',max_length=200,default='',null=True)
+    popup_add_info = models.CharField(verbose_name='더많은정보',max_length=200,default='',null=True,blank=True)
     
     
     popup_opendate=models.DateField (verbose_name='오픈날짜', auto_now = False , auto_now_add = False )
