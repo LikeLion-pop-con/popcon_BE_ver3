@@ -7,15 +7,17 @@ class Brand(models.Model):
     brand_borndate=models.DateField (verbose_name='생성날짜', auto_now = False , auto_now_add = False )
     brand_subcounts=models.IntegerField(verbose_name='구독수',default=0)
     
-    #brand_image=models.ImageField (verbose_name='브랜드이미지', blank=True, null=True)# 브랜드 이미지 추가
+    brand_main_image=models.ImageField (verbose_name='메인이미지', blank=True, null=True)# 브랜드 이미지 추가
+    brand_logo=models.ImageField (verbose_name='브랜드로고', blank=True, null=True)# 브랜드 이미지 추가
+    brand_detail_image=models.ImageField (verbose_name='브랜드상세이미지', blank=True, null=True)# 브랜드 이미지 추가
 
     brand_like_people = models.ManyToManyField(User,blank=True, related_name="brands")# 브랜드 좋아요 누른 사람 수
     
     def __str__(self):
         return self.brand_name
-class BrandImage(models.Model):
-    brand = models.ForeignKey(Brand,on_delete=models.CASCADE)
-    image = models.ImageField(verbose_name='브랜드이미지', blank=True, null=True)
+# class BrandImage(models.Model):
+#     brand = models.ForeignKey(Brand,on_delete=models.CASCADE)
+#     image = models.ImageField(verbose_name='브랜드이미지', blank=True, null=True)
 
 class Category(models.Model):
     name= models.CharField(verbose_name='카테고리',max_length=50)

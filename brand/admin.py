@@ -4,4 +4,4 @@ from .models import *
 admin.site.register(Brand)
 admin.site.register(Popup)
 admin.site.register(Category)
-admin.site.register(BrandImage)
+#admin.site.register(BrandImage)
