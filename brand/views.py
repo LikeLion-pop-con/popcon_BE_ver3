@@ -272,3 +272,35 @@ class PopupInfoView(APIView):
         popup=Popup.objects.get(id=popup_id1)
         popup_serializer = PopupSerializer(popup)
         return Response(popup_serializer.data, status=200)
+    
+class BrandInfoView(APIView):
+    id_param = openapi.Parameter('id', openapi.IN_QUERY, description='브랜드 id', required=True, type=openapi.TYPE_INTEGER)
+    @swagger_auto_schema(tags=['브랜드정보_쿼리로 사용 id=팝업id'], manual_parameters=[id_param])
+    
+    # id= openapi.Parameter('id', openapi.IN_QUERY, description='id', required=True, type=openapi.TYPE_INTEGER)
+    # @swagger_auto_schema(tags=['팝업정보_쿼리로 사용 id=팝업id'])
+    def get(self, request):
+        brand_id1 = request.GET.get('id')
+        brand=Brand.objects.get(id=brand_id1)
+        brand_serializer = BrandSerializer(brand)
+        return Response(brand_serializer.data, status=200)
+    
+
+# class Brand_Open_PopupView(APIView):
+#     id_param = openapi.Parameter('id', openapi.IN_QUERY, description='브랜드 id', required=True, type=openapi.TYPE_INTEGER)
+#     @swagger_auto_schema(tags=['브랜드가 연 팝업 /qmfo브랜드정보_쿼리로 사용 id=팝업id'], manual_parameters=[id_param])
+    
+#     # id= openapi.Parameter('id', openapi.IN_QUERY, description='id', required=True, type=openapi.TYPE_INTEGER)
+#     # @swagger_auto_schema(tags=['팝업정보_쿼리로 사용 id=팝업id'])
+#     def get(self, request):
+#         brand_id1 = request.GET.get('id')
+#         brand=Brand.objects.get(id=brand_id1)
+#         brand_name1=brand.brand_name
+        
+#         popups=Popup.objects.filter(brand_info=brand_name1)
+        
+# #        brand_serializer = BrandSerializer(brand)
+#         popup_serializer = PopupSerializer(popups, many=True)
+
+#         return Response(popup_serializer.data, status=200)
+#             #popups=Popup.objects.filter(popup_state=2).order_by('-popup_like')
