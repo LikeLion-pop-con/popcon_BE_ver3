@@ -19,7 +19,7 @@ from django.urls import path,include,re_path
 from user import views
 from brand.views import *
 
-from popup_place.views import PopupPlaceView,PopupPlaceLike_View
+from popup_place.views import *
 
 
 from user.views import *
@@ -83,8 +83,12 @@ urlpatterns = [
 
     path('popuplist/opened',OpenedPopup_listView.as_view()),
     path('popuplist/willopen',willOpenPopup_listView.as_view()),
+    
     path('search/<str:search_name>',SearchView.as_view(),name='search_name'),
-    path('popupplace/<int:pkey>',PopupPlaceView.as_view(),name='pkey'),
+    
+    
+    path('popupplace/all',PopupPlaceAllView.as_view()),# 전체 팝업공간 정보 전달
+    path('popupplace/<int:pkey>',PopupPlaceView.as_view(),name='pkey'),# pkey 값 추가로 입력하면 그 pkey에 맞는 팝업공간 전달
     path('popupplacelike',PopupPlaceLike_View.as_view()),
 
     
