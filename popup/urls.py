@@ -69,7 +69,7 @@ urlpatterns = [
 
     path('popupinfo/',PopupInfoView.as_view()), #팝업정보
     path('brandinfo/',BrandInfoView.as_view()), #브랜드정보
-    #path('brandinfoopen/',Brand_Open_PopupView.as_view()), #브랜드정보
+    path('brandinfo/popup/',Brand_Open_PopupView.as_view()), #브랜드가 연 팝업
 
 
 
