@@ -61,6 +61,8 @@ urlpatterns = [
     path('main/newbrand',NewBrand_listView.as_view()), #새로운 브랜드 
     path('main/hotpopup',HotPopup_listView.as_view()), #인기팝업리스트
 
+    path('main/brand/<int:input>',CategoryBrand_listView.as_view(),name='input'), #브랜드+아티스트 카테고리 
+
     path('brandlike/',BrandLike_View.as_view()), #브랜드 좋아요 누르기
     path('mylikebrand/',MyBrandLikeList.as_view()),#내가 좋아요 누른 브랜드
     
