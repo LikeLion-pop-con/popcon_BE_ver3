@@ -107,7 +107,48 @@ class CategoryPopuping_listView(APIView):
             popups=Popup.objects.filter(popup_category=8,popup_state=2)#클래스
             popuplistSerializer=PopupSerializer(popups,many=True)
             return Response(popuplistSerializer.data,status=200)
-        
+
+class CategoryBrand_listView(APIView):
+    @swagger_auto_schema(tags=['브랜드+아티스트 카테고리/1~5브랜드 6~9아티스트'])
+
+    def get(self,request,input):
+        if input==1:
+            brands=Brand.objects.filter(brand_category=input)
+            brandlistSerializer=BrandSerializer(brands,many=True)
+            return Response(brandlistSerializer.data,status=200)
+        elif input==2:
+            brands=Brand.objects.filter(brand_category=input)
+            brandlistSerializer=BrandSerializer(brands,many=True)
+            return Response(brandlistSerializer.data,status=200)
+        elif input==3:
+            brands=Brand.objects.filter(brand_category=input)
+            brandlistSerializer=BrandSerializer(brands,many=True)
+            return Response(brandlistSerializer.data,status=200)
+        elif input==4:
+            brands=Brand.objects.filter(brand_category=input)
+            brandlistSerializer=BrandSerializer(brands,many=True)
+            return Response(brandlistSerializer.data,status=200)
+        elif input==5:
+            brands=Brand.objects.filter(brand_category=input)
+            brandlistSerializer=BrandSerializer(brands,many=True)
+            return Response(brandlistSerializer.data,status=200)
+        elif input==6:
+            brands=Brand.objects.filter(brand_category=input)
+            brandlistSerializer=BrandSerializer(brands,many=True)
+            return Response(brandlistSerializer.data,status=200)
+        elif input==7:
+            brands=Brand.objects.filter(brand_category=input)
+            brandlistSerializer=BrandSerializer(brands,many=True)
+            return Response(brandlistSerializer.data,status=200)
+        elif input==8:
+            brands=Brand.objects.filter(brand_category=input)
+            brandlistSerializer=BrandSerializer(brands,many=True)
+            return Response(brandlistSerializer.data,status=200)
+        elif input==9:
+            brands=Brand.objects.filter(brand_category=input)
+            brandlistSerializer=BrandSerializer(brands,many=True)
+            return Response(brandlistSerializer.data,status=200)
+
 
 class NewBrand_listView(APIView):
     @swagger_auto_schema(tags=['새로운브랜드 list'])
@@ -299,3 +340,5 @@ class Brand_Open_PopupView(APIView):
 
         return Response(popup_serializer.data, status=200)
             #popups=Popup.objects.filter(popup_state=2).order_by('-popup_like')
+
+
