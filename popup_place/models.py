@@ -2,7 +2,12 @@ from django.db import models
 from user.models import User
 
 class PopupPlace(models.Model):
-    popup_place_image=models.ImageField (verbose_name='팝업공간사진', blank=True, null=True)
+    #팝업공간사진 4장 필요하다고 
+    popup_place_image01=models.ImageField (verbose_name='팝업공간사진01', blank=True, null=True)
+    popup_place_image02=models.ImageField (verbose_name='팝업공간사진02', blank=True, null=True)
+    popup_place_image03=models.ImageField (verbose_name='팝업공간사진03', blank=True, null=True)
+    popup_place_image04=models.ImageField (verbose_name='팝업공간사진04', blank=True, null=True)
+    
     popup_place_title=models.CharField(verbose_name='팝업공간이름',max_length=100)
     popup_place_location=models.CharField(verbose_name='팝업공간위치',max_length=100)
     popup_place_floor=models.CharField(verbose_name='팝업공간층수',max_length=50)
@@ -15,10 +20,12 @@ class PopupPlace(models.Model):
     warehouse=models.IntegerField(verbose_name='창고사용',default=0)
     freight=models.IntegerField(verbose_name='화물 E/V',default=0)
     parking=models.IntegerField(verbose_name='주차지원',default=0)
-    pkey = models.IntegerField(verbose_name='팝업공간pk',default=0)
     
     
-    popup_place_like_people = models.ManyToManyField(User,blank=True, related_name="popupplace")
+    pkey = models.IntegerField(verbose_name='팝업공간pk',default=0)# pkey값을 설정해서 팝업공간 정리하고 프론트에 전달
+    
+    popup_place_like = models.IntegerField(verbose_name='팝업장소좋아요수', default=0) # 팝업장소 좋아요 수
+    popup_place_like_people = models.ManyToManyField(User,blank=True, related_name="popupplace") # 팝업장소 좋아요 유저
     
     def __str__(self):
         return self.popup_place_title

@@ -80,7 +80,7 @@ class Popup(models.Model):
     popup_image07=models.ImageField (verbose_name='팝업이미지07', blank=True, null=True)
     
     
-    popup_like= models.IntegerField(verbose_name='팝업좋아요수', default=0)
+    popup_like= models.IntegerField(verbose_name='팝업좋아요수', default=0) # 팝업 좋아요 수
 
     popup_category=models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
@@ -104,7 +104,7 @@ class Popup(models.Model):
     Jeju_Special_Self_Governing_Province = models.IntegerField(verbose_name='제주특별자치도', default=0)
 
 
-    popup_like_people = models.ManyToManyField(User,blank=True, related_name="popups") # 팝업 좋아요 수 
+    popup_like_people = models.ManyToManyField(User,blank=True, related_name="popups") # 팝업 좋아요 사람
 
     def __str__(self):
         return self.popup_name

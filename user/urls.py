@@ -5,9 +5,5 @@ from user.views import SignupView
 app_name='user'
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name='login'),
-    #path('signup/', SignupView.as_view(), name='signup'),
-    
+    #path('signup/', SignupView.as_view(), name='signup'),   
 ]
-
-
-
