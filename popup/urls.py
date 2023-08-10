@@ -68,6 +68,10 @@ urlpatterns = [
     path('mylikepopup/',MyPopupLikeList.as_view()), #내가 좋아요 누른 팝업
 
     path('popupinfo/',PopupInfoView.as_view()), #팝업정보
+    path('brandinfo/',BrandInfoView.as_view()), #브랜드정보
+    #path('brandinfoopen/',Brand_Open_PopupView.as_view()), #브랜드정보
+
+
 
     
     path('brandlist/all',AllBrand_listView.as_view()),

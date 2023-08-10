@@ -24,7 +24,7 @@ class PopupPlace(models.Model):
     
     pkey = models.IntegerField(verbose_name='팝업공간pk',default=0)# pkey값을 설정해서 팝업공간 정리하고 프론트에 전달
     
-    popup_place_like = models.IntegerField(verbose_name='팝업장소좋아요수', default=0) # 팝업장소 좋아요 수
+    popup_place_like = models.IntegerField(verbose_name='팝업장소좋아요수', default=0,null=True) # 팝업장소 좋아요 수
     popup_place_like_people = models.ManyToManyField(User,blank=True, related_name="popupplace") # 팝업장소 좋아요 유저
     
     def __str__(self):

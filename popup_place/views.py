@@ -37,7 +37,7 @@ class PopupPlaceLike_View(APIView):
     @swagger_auto_schema(tags=['팝업장소 좋아요'], request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
-            'popup_place_pkey': openapi.Schema(type=openapi.TYPE_STRING, description='popup_place_pkey'), #팝업공간의 pkey와 user_name입력
+            'popup_place_pkey': openapi.Schema(type=openapi.TYPE_INTEGER, description='popup_place_pkey'), #팝업공간의 pkey와 user_name입력
             'user_name': openapi.Schema(type=openapi.TYPE_STRING, description='user_name'),
         },
         required=['popup_place_pkey', 'user_name']
@@ -54,4 +54,4 @@ class PopupPlaceLike_View(APIView):
             popupplace.popup_place_like_people.add(user)
             popupplace.popup_place_like +=1
             popupplace.save()
-        return Response({"message":popupplace.popup_place_like_people.count()})
+        return Response({"popup_place_like_people.count()":popupplace.popup_place_like_people.count(),"popupplace_like":popupplace.popup_place_like})
