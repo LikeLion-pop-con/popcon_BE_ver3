@@ -1,7 +1,16 @@
 from django.db import models
 from user.models import User
 
+
+class BrandCategory(models.Model):
+    name= models.CharField(verbose_name='브랜드/아티스트_카테고리',max_length=50)
+    def __str__(self):
+        return self.name
+
+
 class Brand(models.Model):
+    type=models.IntegerField(verbose_name='타입_1브랜드/2_아트스트',default=0)
+    brand_category=models.ForeignKey(BrandCategory, on_delete=models.CASCADE, null=True,blank=True)
     brand_name = models.CharField(verbose_name='기업이름',max_length=50)
     brand_intro=models.TextField(verbose_name='기업소개')
     brand_borndate=models.DateField (verbose_name='생성날짜', auto_now = False , auto_now_add = False )
@@ -40,10 +49,6 @@ class Category(models.Model):
 #     name= models.CharField(verbose_name='아티스트카테고리',max_length=50)
 #     def __str__(self):
 #         return self.name    
-
-
-
-
 
 class Popup(models.Model):
     brand_info = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
