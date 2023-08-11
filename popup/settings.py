@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken', # 토큰유지?
     'drf_yasg',
     'brand',
+    'card',
     'popup_place',
     'rest_framework_swagger',
 

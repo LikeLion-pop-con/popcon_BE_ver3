@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.urls import path,include,re_path
 from user import views
 from brand.views import *
+from user.views import *
+from card.views import *
 
 from popup_place.views import *
 
 
-from user.views import *
 
 #Swagger 
 from rest_framework.permissions import AllowAny
@@ -73,8 +74,8 @@ urlpatterns = [
     path('brandinfo/',BrandInfoView.as_view()), #브랜드정보
     path('brandinfo/popup/',Brand_Open_PopupView.as_view()), #브랜드가 연 팝업
 
-
-
+    path('card/signup/',CardSignup.as_view()), #카드등록
+    path('card/info/',CardinfoView.as_view()), #카드정보
     
     path('brandlist/all',AllBrand_listView.as_view()),
 
