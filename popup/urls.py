@@ -75,7 +75,7 @@ urlpatterns = [
     path('brandinfo/popup/',Brand_Open_PopupView.as_view()), #브랜드가 연 팝업
 
     path('card/signup/',CardSignup.as_view()), #카드등록
-    path('card/info/',CardinfoView.as_view()), #카드정보
+    #path('card/info/',CardinfoView.as_view()), #카드정보
     
     path('brandlist/all',AllBrand_listView.as_view()),
 
