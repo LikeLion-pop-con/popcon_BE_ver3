@@ -97,7 +97,14 @@ urlpatterns = [
     path('popupplacelike',PopupPlaceLike_View.as_view()),
     path("mylikepopupplace/",MyPopupPlaceLike_ListView.as_view()),
     path('popupplacereservation/', PopupPlaceReservationView.as_view(), name='popup-place-reservation'),
+    path("mypopupplacereservations/",MyPopupPlaceReservations.as_view()),
+    path("popupplaceid/",GetAllPopupPlaceIDsAndTitlesView.as_view()),
     
+    path("popupid/",GetAllPopupIDsAndTitlesView.as_view()),
+    
+    path("userid/",GetAllUserIDsAndTitlesView.as_view()),
+    
+    path("brandid/",GetAllBrandIDsAndTitlesView.as_view()),
 
     
     # Swagger url
@@ -107,4 +114,3 @@ urlpatterns = [
     re_path(r'^image/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # image
-

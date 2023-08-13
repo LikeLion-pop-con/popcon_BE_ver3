@@ -364,5 +364,20 @@ class Brand_Open_PopupView(APIView):
 
         return Response(popup_serializer.data, status=200)
             #popups=Popup.objects.filter(popup_state=2).order_by('-popup_like')
+            
+            
+
+class GetAllBrandIDsAndTitlesView(APIView): #모든 브랜드 및 아티스트의 id : 이름 값 가져오기
+    @swagger_auto_schema(tags=['모든 브랜드 및 아티스트의 id : 이름'])
+    def get(self, request):
+        data = [{"id": instance.id, "title": instance.brand_name} for instance in Brand.objects.all()]
+        return Response({"data": data}, status=200)            
+            
+            
+class GetAllPopupIDsAndTitlesView(APIView): #모든 팝업의 id : 이름 값 가져오기
+    @swagger_auto_schema(tags=['모든 팝업의 id : 이름'])
+    def get(self, request):
+        data = [{"id": instance.id, "title": instance.popup_name} for instance in Popup.objects.all()]
+        return Response({"data": data}, status=200)
 
 
