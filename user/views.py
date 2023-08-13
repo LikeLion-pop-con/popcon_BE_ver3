@@ -119,3 +119,11 @@ class MyInfo(APIView):
             return Response({"message": user.user_name})
         else:
             return Response({"message": "로그아웃 상태입니다."})
+        
+        
+        
+class GetAllUserIDsAndTitlesView(APIView): #모든 유저의 id : 이름 가져오기
+    @swagger_auto_schema(tags=['모든 유저의 id : 이름'])
+    def get(self, request):
+        data = [{"id": instance.id, "title": instance.user_name} for instance in User.objects.all()]
+        return Response({"data": data}, status=200)

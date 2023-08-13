@@ -167,4 +167,9 @@ class MyPopupPlaceReservations(APIView):
         serializer = PopupPlaceSerializer(popupplaces, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
-
+    
+class GetAllPopupPlaceIDsAndTitlesView(APIView): #모든 팝업 장소의 id : 장소이름 값 가져오기
+    @swagger_auto_schema(tags=['모든 팝업장소의 id : 장소이름'])
+    def get(self, request):
+        data = [{"id": instance.id, "title": instance.popup_place_title} for instance in PopupPlace.objects.all()]
+        return Response({"data": data}, status=200)

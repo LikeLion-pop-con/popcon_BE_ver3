@@ -48,4 +48,5 @@ class PopupPlaceReservation(models.Model):
     
     
     def __str__(self):
-        return self.popupplace#.popup_place_title
+        return str(self.popupplace.popup_place_title) if self.popupplace else "No PopupPlace Assigned"# if 뒤에는 popupplace에 내용이 부족한 정보가 있을 때 저렇게 표기해줌(없으면 오류발생)
+        #return str(self.popupplace.popup_place_title)
