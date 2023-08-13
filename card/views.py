@@ -58,4 +58,6 @@ class CardSignup(APIView):
 #         return Response(cardSerializer.data, status=200) 
 
 
+
+
     
