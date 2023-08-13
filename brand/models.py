@@ -53,7 +53,7 @@ class Category(models.Model):
 class Popup(models.Model):
     brand_info = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
 
-    popup_state = models.IntegerField(verbose_name='오픈1_예정2', default=0,null=True)
+    popup_state = models.IntegerField(verbose_name='오픈1_예정2_종료3', default=0,null=True)
 
     popup_name=models.CharField(verbose_name='팝업이름',max_length=50)
     

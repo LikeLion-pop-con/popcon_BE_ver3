@@ -58,6 +58,8 @@ urlpatterns = [
 
     path('main/<int:input>',CategoryPopup_listView.as_view(),name='input'),#팝업카테고리로+진행중인팝업
     path('main/<int:input>/ing',CategoryPopuping_listView.as_view(),name='input'),#팝업카테고리로+신청중인팝업
+    path('main/<int:input>/end',CategoryPopupEnd_listView.as_view(),name='input'),#팝업카테고리로+종료된인팝업
+    
     
     path('main/newbrand',NewBrand_listView.as_view()), #새로운 브랜드 
     path('main/hotpopup',HotPopup_listView.as_view()), #인기팝업리스트
