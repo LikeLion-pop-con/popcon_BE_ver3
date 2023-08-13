@@ -8,7 +8,7 @@ class PopupPlace(models.Model):
     popup_place_image03=models.ImageField (verbose_name='팝업공간사진03', blank=True, null=True)
     popup_place_image04=models.ImageField (verbose_name='팝업공간사진04', blank=True, null=True)
     
-    popup_place_title=models.CharField(verbose_name='팝업공간이름',max_length=100)
+    popup_place_title=models.CharField(verbose_name='팝업공간이름',max_length=200)
     popup_place_location=models.CharField(verbose_name='팝업공간위치',max_length=100)
     popup_place_floor=models.CharField(verbose_name='팝업공간층수',max_length=50)
     popup_place_area=models.CharField(verbose_name='팝업공간연면적',max_length=50)
