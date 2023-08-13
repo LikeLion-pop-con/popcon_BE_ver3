@@ -92,6 +92,8 @@ urlpatterns = [
     path('popupplace/all',PopupPlaceAllView.as_view()),# 전체 팝업공간 정보 전달
     path('popupplace/<int:pkey>',PopupPlaceView.as_view(),name='pkey'),# pkey 값 추가로 입력하면 그 pkey에 맞는 팝업공간 전달
     path('popupplacelike',PopupPlaceLike_View.as_view()),
+    path("mylikepopupplace/",MyPopupPlaceLike_ListView.as_view()),
+    
 
     
     # Swagger url

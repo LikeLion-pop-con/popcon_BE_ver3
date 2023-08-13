@@ -22,10 +22,26 @@ class PopupPlace(models.Model):
     parking=models.IntegerField(verbose_name='주차지원',default=0)
     
     
+    popup_place_basement_floor = models.IntegerField(verbose_name="지하층",blank=True,null=True) # 지하층수입력
+    popup_place_ground_floor = models.IntegerField(verbose_name="지상층",blank=True,null=True) # 지상층수입력
+    
     pkey = models.IntegerField(verbose_name='팝업공간pk',default=0)# pkey값을 설정해서 팝업공간 정리하고 프론트에 전달
     
     popup_place_like = models.IntegerField(verbose_name='팝업장소좋아요수', default=0,null=True) # 팝업장소 좋아요 수
-    popup_place_like_people = models.ManyToManyField(User,blank=True, related_name="popupplace") # 팝업장소 좋아요 유저
+    popup_place_like_people = models.ManyToManyField(User,blank=True, related_name="popupplaces") # 팝업장소 좋아요 유저
     
     def __str__(self):
         return self.popup_place_title
+    
+    
+    
+    
+class PopupPlaceReservation(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+    popupplace = models.ForeignKey(PopupPlace,on_delete=models.CASCADE,null=True)
+    popupplace_reserved_floor = models.IntegerField(verbose_name='팝업공간예약층',null=True) 
+    popupplace_reserved_date = models.CharField(verbose_name='팝업공간날짜',max_length=100)
+    
+    def __str__(self):
+        return self.popupplace_reserved_date
+    

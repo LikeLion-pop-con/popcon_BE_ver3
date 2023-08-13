@@ -13,7 +13,6 @@ from .serializers import PopupPlaceSerializer
 from drf_yasg import openapi 
 from drf_yasg.utils import swagger_auto_schema
 
-
 class PopupPlaceAllView(APIView):
     def get(self,request):
         popup_places = PopupPlace.objects.all()
@@ -55,3 +54,28 @@ class PopupPlaceLike_View(APIView):
             popupplace.popup_place_like +=1
             popupplace.save()
         return Response({"popup_place_like_people.count()":popupplace.popup_place_like_people.count(),"popupplace_like":popupplace.popup_place_like})
+    
+    
+class MyPopupPlaceLike_ListView(APIView):
+    user_name= openapi.Parameter('user_name', openapi.IN_QUERY, description='이름', required=True, type=openapi.TYPE_STRING)
+    @swagger_auto_schema(tags=['내가 좋아요한 팝업공간리스트_쿼리로 사용 user_name=이름'])
+    def get(self,request):
+        user_name01 = request.GET.get("user_name")
+        user = User.objects.get(user_name=user_name01)
+        popupPlace_list = user.popupplaces
+        popupplace_serializer = PopupPlaceSerializer(popupPlace_list,many=True)
+        
+        return Response(popupplace_serializer.data, status=200)
+    
+    
+# class HotPopup_listView(APIView):
+#     @swagger_auto_schema(tags=['예매가능인기팝업 list'])
+#     def get(self,request):
+#         popups=Popup.objects.filter(popup_state=2).order_by('-popup_like')
+#         popuplistSerializer=PopupSerializer(popups,many=True)
+#         return Response(popuplistSerializer.data,status=200)    
+    
+class MyPopupPlaceReservations(APIView):
+    @swagger_auto_schema(tags=['내가 예약한 팝업공간'])
+    def get(self,request):
+        popupplaces = PopupPlace.objects.filter
