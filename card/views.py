@@ -57,7 +57,25 @@ class CardSignup(APIView):
 #         cardSerializer = CardSerializer(card)
 #         return Response(cardSerializer.data, status=200) 
 
+class CardinfoView(APIView):# card/info/?id=user_id 
+    id_param = openapi.Parameter('id', openapi.IN_QUERY, description='user pk id', required=True, type=openapi.TYPE_INTEGER)
 
+<<<<<<< HEAD
 
 
     
+=======
+    @swagger_auto_schema(tags=['카드정보 /id=userpk'], manual_parameters=[id_param])
+    
+    def get(self, request):
+
+        user_pk = request.GET.get("id")
+
+        # 유저에 해당하는 카드 정보 검색
+        cards = Card.objects.filter(user_id=user_pk)
+
+        # Serializer 사용하여 데이터 변환 (many=True 옵션으로 여러 개의 카드 정보 처리)
+        cardSerializer = CardSerializer(cards, many=True)
+
+        return Response(cardSerializer.data, status=200) 
+>>>>>>> 00d49df3d5b3dcaf56b822316ad79db49800fe0e

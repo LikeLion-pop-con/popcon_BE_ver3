@@ -50,7 +50,18 @@ class UserManger(BaseUserManager):
         superuser.save(using=self._db)
         
         return superuser
+
+# class UserPaymentInfo(models.Model):
+#     payment_password = models.IntegerField(verbose_name='결제 비밀번호',null=True,blank=True)
+#     bank = models.CharField(verbose_name='은행종류',max_length=30,null=True,blank=True)
+#     account_number = models.CharField(verbose_name='계좌번호',max_length=50,null=True,blank=True)
+#     creditcard_number = models.CharField(verbose_name='카드번호',max_length=50,null=True,blank=True)
+#     expiration_date = models.CharField(verbose_name='유효기간',max_length=50,null=True,blank=True)
+#     cvc = models.IntegerField(verbose_name='cvc번호',null=True,blank=True)
+#     card_password = models.IntegerField(verbose_name='카드비밀번호',null=True,blank=True)
     
+#     def __str__(self):
+#         return self.bank
     
 class User(AbstractBaseUser, PermissionsMixin):
     userID = models.CharField(max_length=50, unique = True,null=True)# 이메일(아이디)
@@ -61,6 +72,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     user_address = models.CharField(verbose_name='주소',max_length=50, null=True,default=0)# 주소(시)
     user_gender = models.IntegerField(verbose_name='성별', null=True,default=0)
 
+
+    #payment = models.ForeignKey(UserPaymentInfo, on_delete=models.CASCADE, null=True,blank=True)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -73,4 +86,4 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'userID'
 
     class Meta:
-        db_table = 'user'
+        db_table = 'user'    
