@@ -60,11 +60,6 @@ class CardSignup(APIView):
 class CardinfoView(APIView):# card/info/?id=user_id 
     id_param = openapi.Parameter('id', openapi.IN_QUERY, description='user pk id', required=True, type=openapi.TYPE_INTEGER)
 
-<<<<<<< HEAD
-
-
-    
-=======
     @swagger_auto_schema(tags=['카드정보 /id=userpk'], manual_parameters=[id_param])
     
     def get(self, request):
@@ -78,4 +73,3 @@ class CardinfoView(APIView):# card/info/?id=user_id
         cardSerializer = CardSerializer(cards, many=True)
 
         return Response(cardSerializer.data, status=200) 
->>>>>>> 00d49df3d5b3dcaf56b822316ad79db49800fe0e

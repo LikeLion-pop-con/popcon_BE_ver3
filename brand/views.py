@@ -107,6 +107,30 @@ class CategoryPopuping_listView(APIView):
             popups=Popup.objects.filter(popup_category=8,popup_state=2)#클래스
             popuplistSerializer=PopupSerializer(popups,many=True)
             return Response(popuplistSerializer.data,status=200)
+        
+
+class CategoryPopupEnd_listView(APIView):
+    @swagger_auto_schema(tags=['팝업카테고리_1,2,3,4 _종료된 팝업'])
+    def get(self,request,input):
+        if input==1:
+            popups=Popup.objects.filter(popup_category=5,popup_state=3)#스토어
+            popuplistSerializer=PopupSerializer(popups,many=True)
+            return Response(popuplistSerializer.data,status=200)
+        
+        elif input==2:
+            popups=Popup.objects.filter(popup_category=6,popup_state=3)#갤러리
+            popuplistSerializer=PopupSerializer(popups,many=True)
+            return Response(popuplistSerializer.data,status=200)
+        
+        elif input==3:
+            popups=Popup.objects.filter(popup_category=7,popup_state=3)#스테이지
+            popuplistSerializer=PopupSerializer(popups,many=True)
+            return Response(popuplistSerializer.data,status=200)
+        
+        elif input==4:
+            popups=Popup.objects.filter(popup_category=8,popup_state=3)#클래스
+            popuplistSerializer=PopupSerializer(popups,many=True)
+            return Response(popuplistSerializer.data,status=200)
 
 class CategoryBrand_listView(APIView):
     @swagger_auto_schema(tags=['브랜드+아티스트 카테고리/1~5브랜드 6~9아티스트'])
