@@ -75,7 +75,7 @@ urlpatterns = [
     path('brandinfo/popup/',Brand_Open_PopupView.as_view()), #브랜드가 연 팝업
 
     path('card/signup/',CardSignup.as_view()), #카드등록
-    #path('card/info/',CardinfoView.as_view()), #카드정보
+    path('card/info/',CardinfoView.as_view()), #카드정보 card/info/?id=user_id
     
     path('brandlist/all',AllBrand_listView.as_view()),
 
@@ -94,6 +94,7 @@ urlpatterns = [
     path('popupplace/<int:pkey>',PopupPlaceView.as_view(),name='pkey'),# pkey 값 추가로 입력하면 그 pkey에 맞는 팝업공간 전달
     path('popupplacelike',PopupPlaceLike_View.as_view()),
     path("mylikepopupplace/",MyPopupPlaceLike_ListView.as_view()),
+    path('popupplacereservation/', PopupPlaceReservationView.as_view(), name='popup-place-reservation'),
     
 
     

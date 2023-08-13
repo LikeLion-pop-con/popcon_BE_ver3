@@ -37,11 +37,15 @@ class PopupPlace(models.Model):
     
     
 class PopupPlaceReservation(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
-    popupplace = models.ForeignKey(PopupPlace,on_delete=models.CASCADE,null=True)
-    popupplace_reserved_floor = models.IntegerField(verbose_name='팝업공간예약층',null=True) 
-    popupplace_reserved_date = models.CharField(verbose_name='팝업공간날짜',max_length=100)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True) #null=True
+    popupplace = models.ForeignKey(PopupPlace,on_delete=models.CASCADE,null=True)#,null=True
+    # popupplace_reserved_floor = models.IntegerField(verbose_name='팝업공간예약층')#,null=True 
+    
+    popupplace_reserved_basement_floor = models.IntegerField(verbose_name='팝업공간예약지상층',blank=True,null=True)
+    popupplace_reserved_ground_floor = models.IntegerField(verbose_name='팝업공간예약지하층',blank=True,null=True)
+    
+    popupplace_reserved_date = models.CharField(verbose_name='팝업공간날짜',max_length=100) # 프론트에서 날짜형식 or 스트링 에 따라 수정필요
+    
     
     def __str__(self):
-        return self.popupplace_reserved_date
-    
+        return self.popupplace#.popup_place_title
