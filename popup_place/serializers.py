@@ -10,4 +10,3 @@ class PopupPlaceReservationSerializer(serializers.ModelSerializer):
     class Meta:
         model = PopupPlaceReservation
         fields = '__all__'  
-        

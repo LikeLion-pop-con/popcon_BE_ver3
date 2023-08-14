@@ -105,6 +105,8 @@ urlpatterns = [
     path("userid/",GetAllUserIDsAndTitlesView.as_view()),
     
     path("brandid/",GetAllBrandIDsAndTitlesView.as_view()),
+    
+    path("popupreservation/",PopupReservationView.as_view()),
 
     
     # Swagger url
