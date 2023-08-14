@@ -7,6 +7,6 @@ class Card(models.Model):
     bank= models.CharField(verbose_name='은행',max_length=50,null=True,blank=True)
     bank_account_number= models.CharField(verbose_name='계좌번호',max_length=50, null=True,blank=True)
     card_number=models.CharField(verbose_name='카드번호',max_length=50, null=True,blank=True)
-    max_date=models.DateField (verbose_name='카드유효기간', auto_now = False , auto_now_add = False , null=True,blank=True)
+    max_date=models.CharField (verbose_name='카드유효기간',max_length=50, null=True,blank=True)
     cvc=models.CharField(verbose_name='cvc',max_length=50, null=True,blank=True)
     card_password=models.CharField(verbose_name='카드비밀번호',max_length=50, null=True,blank=True)
