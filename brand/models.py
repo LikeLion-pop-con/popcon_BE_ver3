@@ -15,6 +15,8 @@ class Brand(models.Model):
     
     brand_simple_intro = models.CharField(verbose_name='한 줄 소개',max_length=100, null=True,blank=True)
     brand_intro=models.TextField(verbose_name='메인소개')
+    brand_about_link = models.CharField(verbose_name='추가링크',max_length=100, null=True,blank=True)
+
     brand_borndate=models.DateField (verbose_name='생성날짜', auto_now = False , auto_now_add = False )
     brand_subcounts=models.IntegerField(verbose_name='구독수',default=0)
     
