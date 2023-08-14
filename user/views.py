@@ -45,6 +45,7 @@ class LoginView(APIView): # 로그인 관련 뷰
             return Response({"message": "로그인 성공",
                              'token':token.key,
                              'id':user.userID,
+                             'pk':user.id,
                              '회원종류':user.user_type,
                              '이름':user.user_name,
                              '전화번호':user.user_phonenum,
