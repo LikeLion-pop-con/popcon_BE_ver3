@@ -120,7 +120,7 @@ class PopupReservation(models.Model):
     popup = models.ForeignKey(Popup,on_delete=models.CASCADE,null=True)
     # popupplace_reserved_floor = models.IntegerField(verbose_name='팝업공간예약층')#,null=True 
     
-    
+    #popup_reservation_date = models.CharField(verbose_name='팝업예약날짜',max_length=100)
     popup_reservation_date = models.DateField(verbose_name='팝업예약날짜', auto_now = False , auto_now_add = False )
     
     popup_reservation_time = models.CharField(verbose_name='팝업예약시간',max_length=100)
