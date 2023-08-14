@@ -212,11 +212,13 @@ class BrandLike_View(APIView):
         return Response({"message":brand.brand_like_people.count()})
     
 class MyBrandLikeList(APIView):
-    user_name= openapi.Parameter('user_name', openapi.IN_QUERY, description='이름', required=True, type=openapi.TYPE_STRING)
-    @swagger_auto_schema(tags=['내가 좋아요한 브랜드목록_쿼리로 사용 user_name=이름'])
+    
+    user_id_para= openapi.Parameter('id', openapi.IN_QUERY, description='user_id', required=True, type=openapi.TYPE_INTEGER)
+    @swagger_auto_schema(tags=['내가 좋아요한 브랜드목록_쿼리로 사용 id=user_pk'])
     def get(self, request):
-        user_name1 = request.GET.get("user_name")
-        user = User.objects.get(user_name=user_name1)
+        
+        user_pk = request.GET.get("id")
+        user = User.objects.get(id=user_pk)
         brand_list = user.brands
         brand_serializer = BrandSerializer(brand_list, many=True)
 
