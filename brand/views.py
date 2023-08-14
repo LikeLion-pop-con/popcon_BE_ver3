@@ -8,7 +8,7 @@ from user.models import *
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import PopupSerializer,BrandSerializer
+from .serializers import PopupSerializer,BrandSerializer,PopupReservationSerializer
 
 from drf_yasg import openapi 
 from drf_yasg.utils import swagger_auto_schema
@@ -399,13 +399,14 @@ class Brand_Open_PopupView(APIView):
 
 class PopupReservationView(APIView):
     
+    
     @swagger_auto_schema(tags=['팝업예약'], request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
             'user_id': openapi.Schema(type=openapi.TYPE_INTEGER, description="user_id"),
             'popup_id': openapi.Schema(type=openapi.TYPE_INTEGER, description='popup_id'),
-            'popup_reservation_date': openapi.Schema(type=openapi.TYPE_INTEGER, description='popup_reservation_date'),
-            'popup_reservation_time': openapi.Schema(type=openapi.TYPE_INTEGER, description='popup_reservation_time'),
+            'popup_reservation_date': openapi.Schema(type=openapi.TYPE_STRING, description='popup_reservation_date'),
+            'popup_reservation_time': openapi.Schema(type=openapi.TYPE_STRING, description='popup_reservation_time'),
         },
         
         required=['user_id', 'popup_id','popup_reservation_date','popup_reservation_time']
@@ -447,7 +448,32 @@ class PopupReservationView(APIView):
         return Response({"detail": "예약이 성공적으로 되었습니다!", "popupreservation_id": popupreservation.id}, status=status.HTTP_201_CREATED)
 
 
+class UserPopupReservationsView(APIView):
 
+    @swagger_auto_schema(
+        tags=['팝업예약 조회'],
+        manual_parameters=[
+            openapi.Parameter('user_id', in_=openapi.IN_QUERY, description='User ID', type=openapi.TYPE_INTEGER, required=True)
+        ],
+        responses={200: PopupReservationSerializer(many=True)}
+    )
+    def get(self, request):
+        # 사용자 ID 추출
+        user_id = request.GET.get('user_id')
+        if not user_id:
+            return Response({"detail": "사용자 ID를 제공해주세요."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return Response({"detail": "사용자를 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
+
+        # 해당 사용자의 모든 팝업 예약 가져오기
+        reservations = PopupReservation.objects.filter(user=user)
+
+        # 결과를 serialize하여 반환
+        serializer = PopupReservationSerializer(reservations, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 
