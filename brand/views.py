@@ -222,6 +222,20 @@ class MyBrandLikeList(APIView):
 
         return Response(brand_serializer.data, status=200)
 
+class CheckBradnLike(APIView):
+    user_id_para= openapi.Parameter('user_pk', openapi.IN_QUERY, description='user_id', required=True, type=openapi.TYPE_INTEGER)
+    brand_id_para= openapi.Parameter('brand_pk', openapi.IN_QUERY, description='brand_id', required=True, type=openapi.TYPE_INTEGER)
+    @swagger_auto_schema(tags=['브랜드 좋아요 했나 확인 user_pk=id,brand_pk=id'])
+    def get(self, request):
+        user_pk = request.GET.get("user_pk")
+        brand_pk = request.GET.get("brand_pk")
+        user = User.objects.get(id=user_pk)
+        brand = Brand.objects.get(id=brand_pk)
+        if user in brand.brand_like_people.all():
+            return Response({"message": "좋아요눌린상태.","like_state":1}, status=200)
+        else: 
+            return Response({"message": "좋아요안눌린상태.","like_state":0}, status=200)
+
 
 class PopupLike_View(APIView):
     @swagger_auto_schema(tags=['팝업좋아요'], request_body=openapi.Schema(
@@ -325,6 +339,22 @@ class MyPopupLikeList(APIView):
         popup_list = user.popups
         popup_serializer = PopupSerializer(popup_list, many=True)
         return Response(popup_serializer.data, status=200)
+    
+class CheckPopupLike(APIView):
+    user_id_para= openapi.Parameter('user_pk', openapi.IN_QUERY, description='user_id', required=True, type=openapi.TYPE_INTEGER)
+    popup_id_para= openapi.Parameter('popup_pk', openapi.IN_QUERY, description='popup_id', required=True, type=openapi.TYPE_INTEGER)
+    @swagger_auto_schema(tags=['팝업 좋아요 했나 확인 user_pk=id,popup_pk=id'])
+    def get(self, request):
+        user_pk = request.GET.get("user_pk")
+        popup_pk = request.GET.get("popup_pk")
+        user = User.objects.get(id=user_pk)
+        popup = Popup.objects.get(id=popup_pk)
+        if user in popup.popup_like_people.all():
+            return Response({"message": "좋아요눌린상태.","like_state":1}, status=200)
+        else: 
+            return Response({"message": "좋아요안눌린상태.","like_state":0}, status=200)
+            
+
     
 class PopupInfoView(APIView):
     id_param = openapi.Parameter('id', openapi.IN_QUERY, description='팝업 id', required=True, type=openapi.TYPE_INTEGER)
