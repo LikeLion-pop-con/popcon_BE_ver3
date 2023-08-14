@@ -58,11 +58,15 @@ class PopupPlaceLike_View(APIView):
 
 
 class MyPopupPlaceLike_ListView(APIView):
-    user_name= openapi.Parameter('user_name', openapi.IN_QUERY, description='이름', required=True, type=openapi.TYPE_STRING)
-    @swagger_auto_schema(tags=['내가 좋아요한 팝업공간리스트_쿼리로 사용 user_name=이름'])
+    user_id_para= openapi.Parameter('id', openapi.IN_QUERY, description='user_id', required=True, type=openapi.TYPE_INTEGER)
+    #user_name= openapi.Parameter('user_name', openapi.IN_QUERY, description='이름', required=True, type=openapi.TYPE_STRING)
+    @swagger_auto_schema(tags=['내가 좋아요한 팝업공간리스트_쿼리로 사용 id=user_pk'])
     def get(self,request):
-        user_name01 = request.GET.get("user_name")
-        user = User.objects.get(user_name=user_name01)
+        user_pk = request.GET.get("id")
+        #user_name01 = request.GET.get("user_name")
+        #user = User.objects.get(user_name=user_name01)
+        user = User.objects.get(id =user_pk)
+
         popupPlace_list = user.popupplaces
         popupplace_serializer = PopupPlaceSerializer(popupPlace_list,many=True)
         
