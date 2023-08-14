@@ -52,7 +52,7 @@ class PopupSerializer(serializers.ModelSerializer):
 
 class PopupReservationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Popup
+        model = PopupReservation
         fields = '__all__'
 
 

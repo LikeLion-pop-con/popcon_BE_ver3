@@ -112,6 +112,8 @@ urlpatterns = [
     path("brandid/",GetAllBrandIDsAndTitlesView.as_view()),
     
     path("popupreservation/",PopupReservationView.as_view()),
+    
+    path("mypopupreservation/",MyPopupReservationsView.as_view()),
 
     
     # Swagger url

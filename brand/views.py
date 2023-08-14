@@ -448,7 +448,7 @@ class PopupReservationView(APIView):
         return Response({"detail": "예약이 성공적으로 되었습니다!", "popupreservation_id": popupreservation.id}, status=status.HTTP_201_CREATED)
 
 
-class UserPopupReservationsView(APIView):
+class MyPopupReservationsView(APIView):
 
     @swagger_auto_schema(
         tags=['팝업예약 조회'],
@@ -460,13 +460,8 @@ class UserPopupReservationsView(APIView):
     def get(self, request):
         # 사용자 ID 추출
         user_id = request.GET.get('user_id')
-        if not user_id:
-            return Response({"detail": "사용자 ID를 제공해주세요."}, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            user = User.objects.get(pk=user_id)
-        except User.DoesNotExist:
-            return Response({"detail": "사용자를 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
+        
+        user = User.objects.get(id=user_id)
 
         # 해당 사용자의 모든 팝업 예약 가져오기
         reservations = PopupReservation.objects.filter(user=user)
