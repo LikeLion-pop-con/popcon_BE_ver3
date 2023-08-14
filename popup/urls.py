@@ -83,6 +83,9 @@ urlpatterns = [
 
     path('card/signup/',CardSignup.as_view()), #카드등록
     path('card/info/',CardinfoView.as_view()), #카드정보 card/info/?id=user_id
+    path('card/check/',AccountPassword_Check.as_view()), #결제비번확인
+
+    
     
     path('brandlist/all',AllBrand_listView.as_view()),
 

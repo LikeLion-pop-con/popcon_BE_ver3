@@ -43,19 +43,6 @@ class CardSignup(APIView):
         return Response(cardSerializer.data, status=200) 
     
 
-# class CardinfoView(APIView):
-#     id_param = openapi.Parameter('id', openapi.IN_QUERY, description='user pk id', required=True, type=openapi.TYPE_INTEGER)
-#     @swagger_auto_schema(tags=['카드정보 /id=userpk'], manual_parameters=[id_param])
-#     def get(self, request):
-
-#         # user_pk = request.GET.get('id')        
-#         # popups=Popup.objects.filter(brand_info=brand_id1).order_by('-popup_opendate')     
-
-#         user_pk = request.GET.get("id")
-#         #user1=User.objects.filter(id=user_pk)
-#         card=Card.objects.filter(user=user_pk)
-#         cardSerializer = CardSerializer(card)
-#         return Response(cardSerializer.data, status=200) 
 
 class CardinfoView(APIView):# card/info/?id=user_id 
     id_param = openapi.Parameter('id', openapi.IN_QUERY, description='user pk id', required=True, type=openapi.TYPE_INTEGER)
@@ -73,3 +60,23 @@ class CardinfoView(APIView):# card/info/?id=user_id
         cardSerializer = CardSerializer(cards, many=True)
 
         return Response(cardSerializer.data, status=200) 
+
+
+class AccountPassword_Check(APIView):# card/info/?id=user_id 
+    id_param = openapi.Parameter('id', openapi.IN_QUERY, description='user pk id', required=True, type=openapi.TYPE_INTEGER)
+    password_param = openapi.Parameter('pw', openapi.IN_QUERY, description='password', required=True, type=openapi.TYPE_STRING)
+    @swagger_auto_schema(tags=['결제비밀번호확인 쿼리로 id=user_pk,pw=비번'])
+    def get(self, request):
+
+        user_pk = request.GET.get("id")
+        password = request.GET.get("pw")
+
+        # 유저에 해당하는 카드 정보 검색
+        card = Card.objects.filter(user_id=user_pk).first()
+        password1=card.account_password
+        if password ==password1:
+            return Response({"message": "결제성공.","state":1}, status=200)
+        else: 
+            return Response({"message": "결제실패.","state":0}, status=200)
+
+
