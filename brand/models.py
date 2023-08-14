@@ -113,3 +113,21 @@ class Popup(models.Model):
 
     def __str__(self):
         return self.popup_name
+    
+    
+class PopupReservation(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True) 
+    popup = models.ForeignKey(Popup,on_delete=models.CASCADE,null=True)
+    # popupplace_reserved_floor = models.IntegerField(verbose_name='팝업공간예약층')#,null=True 
+    
+    
+    popup_reservation_date = models.DateField(verbose_name='팝업예약날짜', auto_now = False , auto_now_add = False )
+    
+    popup_reservation_time = models.CharField(verbose_name='팝업예약시간',max_length=100)
+    
+    
+    #popupp_reservation_date = models.CharField(verbose_name='팝업날짜',max_length=100) # 프론트에서 날짜형식 or 스트링 에 따라 수정필요
+    
+    
+    def __str__(self):
+        return str(self.popup.popup_name) if self.popup else "No PopupPlace Assigned"# if 뒤에는 popup에 내용이 부족한 정보가 있을 때 저렇게 표기해줌(없으면 오류발생)

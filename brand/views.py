@@ -1,9 +1,9 @@
 from django.shortcuts import render
-
+from rest_framework import status
 # Create your views here.
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-from .models import Popup,Brand
+from .models import *
 from user.models import *
 
 from rest_framework.response import Response
@@ -365,7 +365,70 @@ class Brand_Open_PopupView(APIView):
         return Response(popup_serializer.data, status=200)
             #popups=Popup.objects.filter(popup_state=2).order_by('-popup_like')
             
-            
+
+
+class PopupReservationView(APIView):
+    
+    @swagger_auto_schema(tags=['팝업예약'], request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'user_id': openapi.Schema(type=openapi.TYPE_INTEGER, description="user_id"),
+            'popup_id': openapi.Schema(type=openapi.TYPE_INTEGER, description='popup_id'),
+            'popup_reservation_date': openapi.Schema(type=openapi.TYPE_INTEGER, description='popup_reservation_date'),
+            'popup_reservation_time': openapi.Schema(type=openapi.TYPE_INTEGER, description='popup_reservation_time'),
+        },
+        
+        required=['user_id', 'popup_id','popup_reservation_date','popup_reservation_time']
+    ), responses={200: 'Success'})
+    
+    def post(self, request):
+        
+        # 요청에서 데이터 추출
+        user_id = request.data.get('user_id', None)
+        popup_id = request.data.get('popup_id', None)
+        
+        popup_reservation_date = request.data.get('popup_reservation_date', None)
+        popup_reservation_time = request.data.get('popup_reservation_time', None)
+        
+        # 데이터 검증: 필요에 따라 추가 검증을 할 수 있습니다
+        if not all([user_id, popup_id, popup_reservation_date, popup_reservation_time]):
+            return Response({"detail": "필수 필드가 누락되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return Response({"detail": "사용자를 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            popup = Popup.objects.get(pk=popup_id)
+        except Popup.DoesNotExist:
+            return Response({"detail": "팝업을 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
+
+        # 새 PopupPlaceReservation 인스턴스 생성
+        popupreservation = PopupReservation(
+            user=user,
+            popup=popup,
+            popup_reservation_date=popup_reservation_date,
+            popup_reservation_time=popup_reservation_time
+        )
+        popupreservation.save()
+
+        # 생성된 예약 인스턴스 반환
+        return Response({"detail": "예약이 성공적으로 되었습니다!", "popupreservation_id": popupreservation.id}, status=status.HTTP_201_CREATED)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class GetAllBrandIDsAndTitlesView(APIView): #모든 브랜드 및 아티스트의 id : 이름 값 가져오기
     @swagger_auto_schema(tags=['모든 브랜드 및 아티스트의 id : 이름'])
