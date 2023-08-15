@@ -413,8 +413,17 @@ class PopupInfoView(APIView):
     def get(self, request):
         popup_id1 = request.GET.get('id')
         popup=Popup.objects.get(id=popup_id1)
+        #brand_pk=popup.brand_info
+        brand=Brand.objects.get(id=popup.brand_info_id)
+
+        brand_serializer = BrandSerializer(brand)
         popup_serializer = PopupSerializer(popup)
-        return Response(popup_serializer.data, status=200)
+
+        combined_data = {
+            "brand": brand_serializer.data,
+            "popup": popup_serializer.data,
+        }
+        return Response(combined_data, status=200)
     
 class BrandInfoView(APIView):
     id_param = openapi.Parameter('id', openapi.IN_QUERY, description='브랜드 id', required=True, type=openapi.TYPE_INTEGER)
