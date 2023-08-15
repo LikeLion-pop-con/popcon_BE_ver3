@@ -333,11 +333,11 @@ class PopupLike_View(APIView):
     
 
 class MyPopupLikeList(APIView):
-    user_name= openapi.Parameter('user_name', openapi.IN_QUERY, description='이름', required=True, type=openapi.TYPE_STRING)
-    @swagger_auto_schema(tags=['내가 좋아요한 팝업목록_쿼리로 사용 user_name=이름'])
+    id_para= openapi.Parameter('id', openapi.IN_QUERY, description='user_id', required=True, type=openapi.TYPE_INTEGER)   
+    @swagger_auto_schema(tags=['내가 좋아요한 팝업목록_쿼리로 사용 id=user_pk'])
     def get(self, request):
-        user_name1 = request.GET.get("user_name")
-        user = User.objects.get(user_name=user_name1)
+        pk = request.GET.get("id")
+        user = User.objects.get(id=pk)
         popup_list = user.popups
         popup_serializer = PopupSerializer(popup_list, many=True)
         return Response(popup_serializer.data, status=200)
@@ -453,15 +453,15 @@ class PopupReservationView(APIView):
 class MyPopupReservationsView(APIView):
 
     @swagger_auto_schema(
-        tags=['팝업예약 조회'],
+        tags=['팝업예약 조회 쿼리로 id=user_pk '],
         manual_parameters=[
-            openapi.Parameter('user_id', in_=openapi.IN_QUERY, description='User ID', type=openapi.TYPE_INTEGER, required=True)
+            openapi.Parameter('id', in_=openapi.IN_QUERY, description='User ID', type=openapi.TYPE_INTEGER, required=True)
         ],
         responses={200: PopupReservationSerializer(many=True)}
     )
     def get(self, request):
         # 사용자 ID 추출
-        user_id = request.GET.get('user_id')
+        user_id = request.GET.get('id')
         
         user = User.objects.get(id=user_id)
 
