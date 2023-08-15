@@ -8,7 +8,7 @@ from user.models import *
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import PopupSerializer,BrandSerializer,PopupReservationSerializer
+from .serializers import PopupSerializer,BrandSerializer,PopupReservationSerializer,RequestPopupSerializer
 
 from drf_yasg import openapi 
 from drf_yasg.utils import swagger_auto_schema
@@ -257,6 +257,32 @@ class PopupLike_View(APIView):
         if user in popup.popup_like_people.all():
             popup.popup_like_people.remove(user)
             popup.popup_like -=1
+            popup.save()
+            state=0
+        else:
+            popup.popup_like_people.add(user)
+            popup.popup_like +=1
+            popup.save()
+            state=1
+        return Response({"total_like":popup.popup_like,"mystate":state})
+    
+class PopupRequset_View(APIView):
+    @swagger_auto_schema(tags=['팝업요청'], request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            "popup_pk": openapi.Schema(type=openapi.TYPE_INTEGER, description="popup_pk"),
+            'user_pk': openapi.Schema(type=openapi.TYPE_INTEGER, description='user_pk'),
+        },
+        required=["popup_pk", 'user_pk']
+    ), responses={200: 'Success'})
+
+    def post(self, request):
+
+        popup = Popup.objects.get(id = request.data.get("popup_pk"))         
+        user = User.objects.get(id=request.data.get("user_pk"))
+    
+        if user in popup.popup_request_people.all():
+            popup.popup_request_people.remove(user)
             if '서울특별시' in user.user_address:
                 popup.Seoul -= 1
             elif '부산광역시' in user.user_address:
@@ -292,9 +318,9 @@ class PopupLike_View(APIView):
             elif '제주특별자치도' in user.user_address:
                 popup.Jeju_Special_Self_Governing_Province -= 1
             popup.save()
+            state=0
         else:
-            popup.popup_like_people.add(user)
-            popup.popup_like +=1
+            popup.popup_request_people.add(user)
             if '서울특별시' in user.user_address:
                 popup.Seoul += 1
             elif '부산광역시' in user.user_address:
@@ -330,8 +356,12 @@ class PopupLike_View(APIView):
             elif '제주특별자치도' in user.user_address:
                 popup.Jeju_Special_Self_Governing_Province += 1
             popup.save()
-        return Response({"mylikestate":popup.popup_like_people.count(),"total_like":popup.popup_like})
-    
+            state=1
+        return Response({"total_request":popup.popup_request_people.count(),"request_state":state})
+
+
+
+
 
 class MyPopupLikeList(APIView):
     id_para= openapi.Parameter('id', openapi.IN_QUERY, description='user_id', required=True, type=openapi.TYPE_INTEGER)   
@@ -349,11 +379,11 @@ class MyPopupReservationList(APIView):
     def get(self, request):
         pk = request.GET.get("id")
         user = User.objects.get(id=pk)
-        reservations=PopupReservation.objects.filter(user=user)
+        requestpops=user.request_popups
         
-        reservation_serializer=PopupReservationSerializer(reservations, many=True)
+        request_serializer=RequestPopupSerializer(requestpops, many=True)
         
-        return Response(reservation_serializer.data, status=200)
+        return Response(request_serializer.data, status=200)
 
 
 
