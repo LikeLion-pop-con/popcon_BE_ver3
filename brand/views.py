@@ -194,15 +194,15 @@ class BrandLike_View(APIView):
     @swagger_auto_schema(tags=['브랜드좋아요'], request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
-            'brand_name': openapi.Schema(type=openapi.TYPE_STRING, description='brand_name'),
-            'user_name': openapi.Schema(type=openapi.TYPE_STRING, description='user_name'),
+            "brand_pk": openapi.Schema(type=openapi.TYPE_INTEGER, description="brand_pk"),
+            'user_pk': openapi.Schema(type=openapi.TYPE_INTEGER, description='user_pk'),
         },
-        required=['brand_name', 'user_name']
+        required=['brand_pk', 'user_pk']
     ), responses={200: 'Success'})
 
     def post(self, request):
-        brand = Brand.objects.get(brand_name = request.data.get("brand_name"))         
-        user = User.objects.get(user_name=request.data.get("user_name"))
+        brand = Brand.objects.get(id = request.data.get("brand_pk"))         
+        user = User.objects.get(id=request.data.get("user_pk"))
         if user in brand.brand_like_people.all():
             brand.brand_like_people.remove(user)
             brand.save()
@@ -243,15 +243,16 @@ class PopupLike_View(APIView):
     @swagger_auto_schema(tags=['팝업좋아요'], request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
-            "popup_name": openapi.Schema(type=openapi.TYPE_STRING, description="popup_name"),
-            'user_name': openapi.Schema(type=openapi.TYPE_STRING, description='user_name'),
+            "popup_pk": openapi.Schema(type=openapi.TYPE_INTEGER, description="popup_pk"),
+            'user_pk': openapi.Schema(type=openapi.TYPE_INTEGER, description='user_pk'),
         },
-        required=["popup_name", 'user_name']
+        required=["popup_pk", 'user_pk']
     ), responses={200: 'Success'})
 
     def post(self, request):
-        popup = Popup.objects.get(popup_name = request.data.get("popup_name"))         
-        user = User.objects.get(user_name=request.data.get("user_name"))
+
+        popup = Popup.objects.get(id = request.data.get("popup_pk"))         
+        user = User.objects.get(id=request.data.get("user_pk"))
     
         if user in popup.popup_like_people.all():
             popup.popup_like_people.remove(user)

@@ -37,14 +37,14 @@ class PopupPlaceLike_View(APIView):
         type=openapi.TYPE_OBJECT,
         properties={
             'popup_place_pkey': openapi.Schema(type=openapi.TYPE_INTEGER, description='popup_place_pkey'), #팝업공간의 pkey와 user_name입력
-            'user_name': openapi.Schema(type=openapi.TYPE_STRING, description='user_name'),
+            'user_pk': openapi.Schema(type=openapi.TYPE_INTEGER, description='user_pk'),
         },
-        required=['popup_place_pkey', 'user_name']
+        required=['popup_place_pkey', 'user_pk']
     ), responses={200: 'Success'})
     
     def post(self,request):
         popupplace = PopupPlace.objects.get(pkey = request.data.get("popup_place_pkey"))
-        user = User.objects.get(user_name=request.data.get("user_name"))
+        user = User.objects.get(id=request.data.get("user_pk"))
         if user in popupplace.popup_place_like_people.all():
             popupplace.popup_place_like_people.remove(user)
             popupplace.popup_place_like -=1
@@ -54,6 +54,7 @@ class PopupPlaceLike_View(APIView):
             popupplace.popup_place_like +=1
             popupplace.save()
         return Response({"popup_place_like_people.count()":popupplace.popup_place_like_people.count(),"popupplace_like":popupplace.popup_place_like})
+    
     
 
 
