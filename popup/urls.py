@@ -106,7 +106,7 @@ urlpatterns = [
      
      
 
-    path('popupplacelike',PopupPlaceLike_View.as_view()),
+    path('popupplacelike/',PopupPlaceLike_View.as_view()),
     path("mylikepopupplace/",MyPopupPlaceLike_ListView.as_view()),
     path('popupplacereservation/', PopupPlaceReservationView.as_view(), name='popup-place-reservation'),
     path("mypopupplacereservations/",MyPopupPlaceReservations.as_view()),
