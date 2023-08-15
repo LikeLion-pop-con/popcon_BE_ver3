@@ -114,6 +114,9 @@ class Popup(models.Model):
 
 
     popup_like_people = models.ManyToManyField(User,blank=True, related_name="popups") # 팝업 좋아요 사람
+    popup_request_people = models.ManyToManyField(User,blank=True, related_name="request_popups") # 팝업 요청한 사람
+
+
 
     def __str__(self):
         return self.popup_name

@@ -50,6 +50,12 @@ class PopupSerializer(serializers.ModelSerializer):
         model = Popup
         fields = '__all__'
 
+
+class RequestPopupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Popup
+        fields = ['id','popup_name', 'popup_main_image']
+
 class PopupReservationSerializer(serializers.ModelSerializer):
     popup_main_image = serializers.ImageField(source='popup.popup_main_image', read_only=True)
     class Meta:

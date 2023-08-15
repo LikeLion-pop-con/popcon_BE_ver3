@@ -72,8 +72,10 @@ urlpatterns = [
 
     
     path('popuplike/',PopupLike_View.as_view()), #팝업 좋아요 누르기
+    path('popuprequest/',PopupRequset_View.as_view()), #팝업 요청
+    
     path('mylikepopup/',MyPopupLikeList.as_view()), #내가 좋아요 누른 팝업
-    path('mylikepopup/reservation/',MyPopupReservationList.as_view()), #내가 좋아요 누른 팝업
+    path('mylikepopup/request/',MyPopupReservationList.as_view()), #내가 요청한 팝업
     path('mylikepopup/check/',CheckPopupLike.as_view()), # 팝업 좋아요 눌렀는지 확인
     
 
