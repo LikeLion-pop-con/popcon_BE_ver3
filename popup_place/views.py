@@ -192,3 +192,4 @@ class GetAllPopupPlaceIDsAndTitlesView(APIView): #모든 팝업 장소의 id : �
     def get(self, request):
         data = [{"id": instance.id, "title": instance.popup_place_title} for instance in PopupPlace.objects.all()]
         return Response({"data": data}, status=200)
+#aaa
