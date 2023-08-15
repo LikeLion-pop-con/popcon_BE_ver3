@@ -343,6 +343,21 @@ class MyPopupLikeList(APIView):
         popup_serializer = PopupSerializer(popup_list, many=True)
         return Response(popup_serializer.data, status=200)
     
+class MyPopupReservationList(APIView):
+    id_para= openapi.Parameter('id', openapi.IN_QUERY, description='user_id', required=True, type=openapi.TYPE_INTEGER)   
+    @swagger_auto_schema(tags=['내가 요청한 팝업목록_쿼리로 사용 id=user_pk'])
+    def get(self, request):
+        pk = request.GET.get("id")
+        user = User.objects.get(id=pk)
+        reservations=PopupReservation.objects.filter(user=user)
+        
+        reservation_serializer=PopupReservationSerializer(reservations, many=True)
+        
+        return Response(reservation_serializer.data, status=200)
+
+
+
+    
 class CheckPopupLike(APIView):
     user_id_para= openapi.Parameter('user_pk', openapi.IN_QUERY, description='user_id', required=True, type=openapi.TYPE_INTEGER)
     popup_id_para= openapi.Parameter('popup_pk', openapi.IN_QUERY, description='popup_id', required=True, type=openapi.TYPE_INTEGER)
