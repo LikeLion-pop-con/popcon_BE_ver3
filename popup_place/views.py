@@ -30,7 +30,7 @@ class PopupPlaceView(APIView):
             serializer = PopupPlaceSerializer(popup_places, many=True)
         return Response(serializer.data)
     
-    
+#aaaaa
     
 class PopupPlaceLike_View(APIView):
     @swagger_auto_schema(tags=['팝업장소 좋아요 기능'], request_body=openapi.Schema(
