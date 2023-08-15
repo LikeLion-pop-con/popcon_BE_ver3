@@ -13,7 +13,7 @@ class Brand(models.Model):
     brand_category=models.ForeignKey(BrandCategory, on_delete=models.CASCADE, null=True,blank=True)
     brand_name = models.CharField(verbose_name='기업이름',max_length=50)
     
-    brand_simple_intro = models.CharField(verbose_name='한 줄 소개',max_length=100, null=True,blank=True)
+    brand_simple_intro = models.CharField(verbose_name='한 줄 소개',max_length=200, null=True,blank=True)
     brand_intro=models.TextField(verbose_name='메인소개')
     brand_about_link = models.CharField(verbose_name='추가링크',max_length=100, null=True,blank=True)
 
@@ -126,12 +126,7 @@ class PopupReservation(models.Model):
     
     #popup_reservation_date = models.CharField(verbose_name='팝업예약날짜',max_length=100)
     popup_reservation_date = models.DateField(verbose_name='팝업예약날짜', auto_now = False , auto_now_add = False )
-    
     popup_reservation_time = models.CharField(verbose_name='팝업예약시간',max_length=100)
-    
-    
     #popupp_reservation_date = models.CharField(verbose_name='팝업날짜',max_length=100) # 프론트에서 날짜형식 or 스트링 에 따라 수정필요
-    
-    
     def __str__(self):
         return str(self.popup.popup_name) if self.popup else "No PopupPlace Assigned"# if 뒤에는 popup에 내용이 부족한 정보가 있을 때 저렇게 표기해줌(없으면 오류발생)
