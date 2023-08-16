@@ -112,8 +112,11 @@ class PopupPlaceReservationView(APIView):
         reserved_date = request.data.get('reserved_date', None)
         
         # 데이터 검증: 필요에 따라 추가 검증을 할 수 있습니다
-        if not all([user_id, popup_place_pkey, reserved_basement_floor, reserved_ground_floor, reserved_date]):
+        if any(val is None for val in [user_id, popup_place_pkey, reserved_basement_floor, reserved_ground_floor, reserved_date]):
             return Response({"detail": "필수 필드가 누락되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # if not all([user_id, popup_place_pkey, reserved_basement_floor, reserved_ground_floor, reserved_date]):
+        #     return Response({"detail": "필수 필드가 누락되었습니다."}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             user = User.objects.get(pk=user_id)
@@ -180,11 +183,8 @@ class MyPopupPlaceReservations(APIView):
         # 해당 사용자의 모든 PopupPlaceReservation 객체들을 가져오기
         reservations = PopupPlaceReservation.objects.filter(user=user)
 
-        # 해당 예약들과 연관된 PopupPlace 객체들을 가져오기
-        popupplaces = [reservation.popupplace for reservation in reservations]
-
         # 데이터 직렬화
-        serializer = PopupPlaceSerializer(popupplaces, many=True)
+        serializer = PopupPlaceReservationSerializer(reservations, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
     
