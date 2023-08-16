@@ -77,6 +77,7 @@ urlpatterns = [
     path('mylikepopup/',MyPopupLikeList.as_view()), #내가 좋아요 누른 팝업
     path('mylikepopup/request/',MyPopupReservationList.as_view()), #내가 요청한 팝업
     path('mylikepopup/check/',CheckPopupLike.as_view()), # 팝업 좋아요 눌렀는지 확인
+    path("mypopupreservation/",MyPopupReservationsView.as_view()),#내가예약한팝업
     
 
 
@@ -123,7 +124,7 @@ urlpatterns = [
     
     path("popupreservation/",PopupReservationView.as_view()),
     
-    path("mypopupreservation/",MyPopupReservationsView.as_view()),
+    
 
     
     # Swagger url

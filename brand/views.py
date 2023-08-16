@@ -382,6 +382,7 @@ class MyPopupReservationList(APIView):
         requestpops=user.request_popups
         
         request_serializer=RequestPopupSerializer(requestpops, many=True)
+    
         
         return Response(request_serializer.data, status=200)
 
@@ -525,6 +526,9 @@ class MyPopupReservationsView(APIView):
 
         # 결과를 serialize하여 반환
         serializer = PopupReservationSerializer(reservations, many=True)
+
+
+        
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
