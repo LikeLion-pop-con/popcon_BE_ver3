@@ -21,9 +21,9 @@ class PopupPlaceAllView(APIView):
         
 class PopupPlaceView(APIView):
     
-    def get(self, request, pkey=None):# pkey는 장소별로 정리해서 프론트로 전달 
-        if pkey:
-            popup_place = get_object_or_404(PopupPlace, pkey=pkey)
+    def get(self, request, id=None):# pkey는 장소별로 정리해서 프론트로 전달 
+        if id:
+            popup_place = get_object_or_404(PopupPlace, id=id)
             serializer = PopupPlaceSerializer(popup_place)
         else:
             popup_places = PopupPlace.objects.all()
