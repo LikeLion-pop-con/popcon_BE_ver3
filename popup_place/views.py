@@ -124,7 +124,7 @@ class PopupPlaceReservationView(APIView):
             return Response({"detail": "사용자를 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
 
         try:
-            popup_place = PopupPlace.objects.get(pk=popup_place_pkey)
+            popup_place = PopupPlace.objects.get(id=popup_place_pkey)
         except PopupPlace.DoesNotExist:
             return Response({"detail": "팝업 공간을 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
 
