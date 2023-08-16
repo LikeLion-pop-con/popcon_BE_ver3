@@ -70,7 +70,11 @@ urlpatterns = [
     path('mylikebrand/',MyBrandLikeList.as_view()),#내가 좋아요 누른 브랜드
     path('mylikebrand/check/',CheckBradnLike.as_view()),# 브랜드 좋아요 눌렀는지 확인
 
-    
+    path('brand/subscribe/',BrandSubscribe_View.as_view()), #브랜드 구독 누르기
+    path('brand/subscribe/my/',MyBrandSubscribeList.as_view()),#내가 구독 누른 브랜드
+    path('brand/subscribe/check/',CheckBradnSubscribe.as_view()),# 브랜드 구독 눌렀는지 확인
+
+
     path('popuplike/',PopupLike_View.as_view()), #팝업 좋아요 누르기
     path('popuprequest/',PopupRequset_View.as_view()), #팝업 요청
     

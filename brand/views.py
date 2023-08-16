@@ -211,6 +211,30 @@ class BrandLike_View(APIView):
             brand.save()
         return Response({"message":brand.brand_like_people.count()})
     
+
+class BrandSubscribe_View(APIView):
+    @swagger_auto_schema(tags=['브랜드구독'], request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            "brand_pk": openapi.Schema(type=openapi.TYPE_INTEGER, description="brand_pk"),
+            'user_pk': openapi.Schema(type=openapi.TYPE_INTEGER, description='user_pk'),
+        },
+        required=['brand_pk', 'user_pk']
+    ), responses={200: 'Success'})
+
+    def post(self, request):
+        brand = Brand.objects.get(id = request.data.get("brand_pk"))         
+        user = User.objects.get(id=request.data.get("user_pk"))
+        if user in brand.brand_subscribe_people.all():
+            brand.brand_subscribe_people.remove(user)
+            brand.save()
+        else:
+            brand.brand_subscribe_people.add(user)
+            brand.save()
+        return Response({"message":brand.brand_subscribe_people.count()})
+    
+
+
 class MyBrandLikeList(APIView):
     
     user_id_para= openapi.Parameter('id', openapi.IN_QUERY, description='user_id', required=True, type=openapi.TYPE_INTEGER)
@@ -223,6 +247,21 @@ class MyBrandLikeList(APIView):
         brand_serializer = BrandSerializer(brand_list, many=True)
 
         return Response(brand_serializer.data, status=200)
+    
+class MyBrandSubscribeList(APIView):
+    
+    user_id_para= openapi.Parameter('id', openapi.IN_QUERY, description='user_id', required=True, type=openapi.TYPE_INTEGER)
+    @swagger_auto_schema(tags=['내가 구독한 브랜드목록_쿼리로 사용 id=user_pk'])
+    def get(self, request):
+        
+        user_pk = request.GET.get("id")
+        user = User.objects.get(id=user_pk)
+        brand_list = user.subscribe_brands
+        brand_serializer = BrandSerializer(brand_list, many=True)
+
+        return Response(brand_serializer.data, status=200)
+
+
 
 class CheckBradnLike(APIView):
     user_id_para= openapi.Parameter('user_pk', openapi.IN_QUERY, description='user_id', required=True, type=openapi.TYPE_INTEGER)
@@ -237,6 +276,21 @@ class CheckBradnLike(APIView):
             return Response({"message": "좋아요눌린상태.","like_state":1}, status=200)
         else: 
             return Response({"message": "좋아요안눌린상태.","like_state":0}, status=200)
+        
+
+class CheckBradnSubscribe(APIView):
+    user_id_para= openapi.Parameter('user_pk', openapi.IN_QUERY, description='user_id', required=True, type=openapi.TYPE_INTEGER)
+    brand_id_para= openapi.Parameter('brand_pk', openapi.IN_QUERY, description='brand_id', required=True, type=openapi.TYPE_INTEGER)
+    @swagger_auto_schema(tags=['브랜드 구독 했나 확인 user_pk=id,brand_pk=id'])
+    def get(self, request):
+        user_pk = request.GET.get("user_pk")
+        brand_pk = request.GET.get("brand_pk")
+        user = User.objects.get(id=user_pk)
+        brand = Brand.objects.get(id=brand_pk)
+        if user in brand.brand_subscribe_people.all():
+            return Response({"message": "구독눌린상태.","subscribe_state":1}, status=200)
+        else: 
+            return Response({"message": "구독안눌린상태.","subscribe_state":0}, status=200)
 
 
 class PopupLike_View(APIView):
@@ -528,7 +582,7 @@ class MyPopupReservationsView(APIView):
         serializer = PopupReservationSerializer(reservations, many=True)
 
 
-        
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
