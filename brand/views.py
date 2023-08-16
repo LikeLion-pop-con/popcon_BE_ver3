@@ -586,6 +586,38 @@ class MyPopupReservationsView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class DeletePopupReservationView(APIView):
+    
+    # 유저의 팝업 예약을 삭제하는 뷰
+    
+    @swagger_auto_schema(
+        tags=['팝업예약 삭제'],
+        manual_parameters=[
+            openapi.Parameter('user_id', in_=openapi.IN_QUERY, description='User ID', type=openapi.TYPE_INTEGER, required=True),
+            openapi.Parameter('popupreservation_id', in_=openapi.IN_QUERY, description='Popup Reservation ID', type=openapi.TYPE_INTEGER, required=True),
+        ],
+        responses={
+            200: "Successfully deleted",
+            404: "Not Found"
+        }
+    )
+    def delete(self, request):
+        user_id = request.GET.get('user_id')
+        popupreservation_id = request.GET.get('popupreservation_id')
+
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response({"detail": "사용자를 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            popupreservation = PopupReservation.objects.get(id=popupreservation_id, user=user)
+        except PopupReservation.DoesNotExist:
+            return Response({"detail": "예약을 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
+
+        popupreservation.delete()
+
+        return Response({"detail": "예약이 삭제되었습니다!"}, status=status.HTTP_200_OK)
 
 
 
