@@ -56,6 +56,8 @@ class PopupPlaceLike_View(APIView):
         return Response({"popup_place_like_people.count()":popupplace.popup_place_like_people.count(),"popupplace_like":popupplace.popup_place_like})
     
     
+    
+    
 
 
 class MyPopupPlaceLike_ListView(APIView):

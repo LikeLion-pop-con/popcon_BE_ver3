@@ -227,12 +227,13 @@ class BrandSubscribe_View(APIView):
         user = User.objects.get(id=request.data.get("user_pk"))
         if user in brand.brand_subscribe_people.all():
             brand.brand_subscribe_people.remove(user)
+            brand.brand_subcounts -=1
             brand.save()
         else:
             brand.brand_subscribe_people.add(user)
+            brand.brand_subcounts +=1
             brand.save()
-        return Response({"message":brand.brand_subscribe_people.count()})
-    
+        return Response({"brand_subscribe_people.count()":brand.brand_subscribe_people.count(),"brand_subcounts":brand.brand_subcounts})
 
 
 class MyBrandLikeList(APIView):
