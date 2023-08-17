@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'brand',
     'card',
     'popup_place',
+    'brandpost',
     'rest_framework_swagger',
 
 ]
