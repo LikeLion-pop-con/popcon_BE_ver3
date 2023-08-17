@@ -185,7 +185,7 @@ class NewBrand_listView(APIView):
 class HotPopup_listView(APIView):
     @swagger_auto_schema(tags=['예매가능인기팝업 list'])
     def get(self,request):
-        popups=Popup.objects.filter(popup_state=2).order_by('-popup_like')
+        popups=Popup.objects.filter(popup_state=1).order_by('-popup_like')
         popuplistSerializer=PopupSerializer(popups,many=True)
         return Response(popuplistSerializer.data,status=200)
     
@@ -498,7 +498,15 @@ class BrandInfoView(APIView):
         brand=Brand.objects.get(id=brand_id1)
         brand_serializer = BrandSerializer(brand)
         return Response(brand_serializer.data, status=200)
+
+class BrandsubcountsView(APIView):
+    id_param = openapi.Parameter('id', openapi.IN_QUERY, description='브랜드 id', required=True, type=openapi.TYPE_INTEGER)
+    @swagger_auto_schema(tags=['브랜드구독자수_쿼리로 사용 id=팝업id'], manual_parameters=[id_param])
     
+    def get(self, request):
+        brand_id1 = request.GET.get('id')
+        brand=Brand.objects.get(id=brand_id1)
+        return Response({"brandsubcounts":brand.brand_subcounts}, status=200)
 
 class Brand_Open_PopupView(APIView):
     id_param = openapi.Parameter('id', openapi.IN_QUERY, description='브랜드 id', required=True, type=openapi.TYPE_INTEGER)
