@@ -22,7 +22,7 @@ from user.views import *
 from card.views import *
 
 from popup_place.views import *
-
+from brandpost.views import *
 
 
 #Swagger 
@@ -88,7 +88,9 @@ urlpatterns = [
     path('popupinfo/',PopupInfoView.as_view()), #팝업정보
     path('brandinfo/',BrandInfoView.as_view()), #브랜드정보
     path('brandinfo/popup/',Brand_Open_PopupView.as_view()), #브랜드가 연 팝업
+    path('brandinfo/post/',Brand_Have_PopupView.as_view()), #브랜드의 post
 
+    
     path('card/signup/',CardSignup.as_view()), #카드등록
     path('card/info/',CardinfoView.as_view()), #카드정보 card/info/?id=user_id
     path('card/check/',AccountPassword_Check.as_view()), #결제비번확인
