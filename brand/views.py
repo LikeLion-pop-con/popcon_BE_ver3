@@ -189,6 +189,12 @@ class HotPopup_listView(APIView):
         popuplistSerializer=PopupSerializer(popups,many=True)
         return Response(popuplistSerializer.data,status=200)
     
+class HotBrand_listView(APIView):
+    @swagger_auto_schema(tags=['구독수에따른인기브랜드및아티스트 list'])
+    def get(self,request):
+        brands=Brand.objects.order_by('-brand_subcounts')
+        brandlistSerializer=BrandSerializer(brands,many=True)
+        return Response(brandlistSerializer.data,status=200)
 
 class BrandLike_View(APIView):
     @swagger_auto_schema(tags=['브랜드좋아요'], request_body=openapi.Schema(

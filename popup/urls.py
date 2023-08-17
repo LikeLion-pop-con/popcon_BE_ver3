@@ -63,6 +63,7 @@ urlpatterns = [
     
     path('main/newbrand',NewBrand_listView.as_view()), #새로운 브랜드 
     path('main/hotpopup',HotPopup_listView.as_view()), #인기팝업리스트
+    path('main/hotbrand',HotBrand_listView.as_view()), #인기브랜드리스트
 
     path('main/brand/<int:input>',CategoryBrand_listView.as_view(),name='input'), #브랜드+아티스트 카테고리 
 
