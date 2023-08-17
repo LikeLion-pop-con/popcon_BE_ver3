@@ -69,6 +69,8 @@ class Popup(models.Model):
     popup_time = models.CharField(verbose_name='운영시간',max_length=150,default='',null=True,blank=True)
     popup_operation = models.CharField(verbose_name='기획/운영',max_length=150,default='',null=True,blank=True)
     popup_detailplace=models.CharField(verbose_name='팝업장소',null=True,max_length=50)
+    popup_map_place=models.CharField(verbose_name='지도위치',null=True,blank=True,max_length=50)
+
     popup_info=models.TextField(verbose_name='팝업내용')
     popup_add_info = models.CharField(verbose_name='더많은정보',max_length=200,default='',null=True,blank=True)
     
