@@ -58,6 +58,14 @@ class PopupPlaceLike_View(APIView):
     
     
     
+class PopupPlaceLikeCountView(APIView):
+    id_param = openapi.Parameter('id', openapi.IN_QUERY, description='팝업공간 id', required=True, type=openapi.TYPE_INTEGER)
+    @swagger_auto_schema(tags=['팝업공간 좋아요 수_쿼리로 사용 id=팝업id'], manual_parameters=[id_param])
+    
+    def get(self, request):
+        popupplace_id = request.GET.get('id')
+        popupplace=PopupPlace.objects.get(id=popupplace_id)
+        return Response({"popup_place_like":popupplace.popup_place_like}, status=200)
 
 
 class MyPopupPlaceLike_ListView(APIView):
