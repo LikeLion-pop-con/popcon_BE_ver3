@@ -414,7 +414,7 @@ class PopupRequset_View(APIView):
                 popup.Gyeongsangbuk_Province += 1
             elif '경상남도' in user.user_address:
                 popup.Gyeongsangnam_Province += 1
-            elif '제주특별자치도' in user.user_address:
+            elif '제주' in user.user_address:
                 popup.Jeju_Special_Self_Governing_Province += 1
             popup.save()
             state=1
