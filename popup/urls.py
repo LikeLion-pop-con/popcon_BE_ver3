@@ -90,8 +90,9 @@ urlpatterns = [
     path('popupinfo/',PopupInfoView.as_view()), #팝업정보
     path('brandinfo/',BrandInfoView.as_view()), #브랜드정보
     path('brandinfo/popup/',Brand_Open_PopupView.as_view()), #브랜드가 연 팝업
-    path('brandinfo/post/',Brand_Have_PopupView.as_view()), #브랜드의 post
-
+    path('brandinfo/post/',Brand_Have_PostView.as_view()), #브랜드의 post
+    path('brandinfo/post/all/',Brand_PostallList.as_view()), #브랜드의 모든 post
+    
     
     path('card/signup/',CardSignup.as_view()), #카드등록
     path('card/info/',CardinfoView.as_view()), #카드정보 card/info/?id=user_id
