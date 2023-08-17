@@ -436,7 +436,7 @@ class MyPopupReservationList(APIView):
         user = User.objects.get(id=pk)
         requestpops=user.request_popups
         
-        request_serializer=RequestPopupSerializer(requestpops, many=True)
+        request_serializer=PopupSerializer(requestpops, many=True)
     
         
         return Response(request_serializer.data, status=200)
