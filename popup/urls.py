@@ -20,6 +20,7 @@ from user import views
 from brand.views import *
 from user.views import *
 from card.views import *
+from video.views import *
 
 from popup_place.views import *
 from brandpost.views import *
@@ -136,6 +137,9 @@ urlpatterns = [
     path("popupreservation/",PopupReservationView.as_view()),
     path("deletepopupreservation/",DeletePopupReservationView.as_view()),
     
+    path("gif/",Video_GetView.as_view()),#gif가져오기
+
+    
     
 
     
@@ -146,3 +150,5 @@ urlpatterns = [
     re_path(r'^image/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # image
+
+
