@@ -36,14 +36,14 @@ class PopupPlaceLike_View(APIView):
     @swagger_auto_schema(tags=['팝업장소 좋아요 기능'], request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
-            'popup_place_pkey': openapi.Schema(type=openapi.TYPE_INTEGER, description='popup_place_pkey'), #팝업공간의 pkey와 user_name입력
+            'popup_place_pk': openapi.Schema(type=openapi.TYPE_INTEGER, description='popup_place_pk'), #팝업공간의 pkey와 user_name입력
             'user_pk': openapi.Schema(type=openapi.TYPE_INTEGER, description='user_pk'),
         },
-        required=['popup_place_pkey', 'user_pk']
+        required=['popup_place_pk', 'user_pk']
     ), responses={200: 'Success'})
     
     def post(self,request):
-        popupplace = PopupPlace.objects.get(pkey = request.data.get("popup_place_pkey"))
+        popupplace = PopupPlace.objects.get(pk = request.data.get("popup_place_pk"))
         user = User.objects.get(id=request.data.get("user_pk"))
         if user in popupplace.popup_place_like_people.all():
             popupplace.popup_place_like_people.remove(user)
@@ -54,8 +54,45 @@ class PopupPlaceLike_View(APIView):
             popupplace.popup_place_like +=1
             popupplace.save()
         return Response({"popup_place_like_people.count()":popupplace.popup_place_like_people.count(),"popupplace_like":popupplace.popup_place_like})
+
+class PopupPlaceLikeCheck_View(APIView):
+    @swagger_auto_schema(tags=['팝업장소 좋아요하면 상태 리턴'], request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'popup_place_pk': openapi.Schema(type=openapi.TYPE_INTEGER, description='popup_place_pk'), #팝업공간의 pkey와 user_name입력
+            'user_pk': openapi.Schema(type=openapi.TYPE_INTEGER, description='user_pk'),
+        },
+        required=['popup_place_pk', 'user_pk']
+    ), responses={200: 'Success'})
+    
+    def post(self,request):
+        popupplace = PopupPlace.objects.get(pk = request.data.get("popup_place_pk"))
+        user = User.objects.get(id=request.data.get("user_pk"))
+        if user in popupplace.popup_place_like_people.all():
+            popupplace.popup_place_like_people.remove(user)
+            popupplace.popup_place_like -=1
+            popupplace.save()
+            return Response({"message": "좋아요눌린상태.","like_state":1}, status=200)
+        else:
+            popupplace.popup_place_like_people.add(user)
+            popupplace.popup_place_like +=1
+            popupplace.save()
+            return Response({"message": "좋아요안눌린상태.","like_state":0}, status=200)
     
     
+class CheckPopup_PlaceLike(APIView):
+    user_id_para= openapi.Parameter('user_pk', openapi.IN_QUERY, description='user_id', required=True, type=openapi.TYPE_INTEGER)
+    place_id_para= openapi.Parameter('place_pk', openapi.IN_QUERY, description='place_id', required=True, type=openapi.TYPE_INTEGER)
+    @swagger_auto_schema(tags=['공간대여 좋아요 했나 확인 user_pk=id,place_pk=id'])
+    def get(self, request):
+        user_pk = request.GET.get("user_pk")
+        place_pk = request.GET.get("place_pk")
+        user = User.objects.get(id=user_pk)
+        place = PopupPlace.objects.get(id=place_pk)
+        if user in place.popup_place_like_people.all():
+            return Response({"message": "좋아요눌린상태.","like_state":1}, status=200)
+        else: 
+            return Response({"message": "좋아요안눌린상태.","like_state":0}, status=200)    
     
     
 class PopupPlaceLikeCountView(APIView):
@@ -83,19 +120,7 @@ class MyPopupPlaceLike_ListView(APIView):
         
         return Response(popupplace_serializer.data, status=200)
     
-class CheckPopup_PlaceLike(APIView):
-    user_id_para= openapi.Parameter('user_pk', openapi.IN_QUERY, description='user_id', required=True, type=openapi.TYPE_INTEGER)
-    place_id_para= openapi.Parameter('place_pk', openapi.IN_QUERY, description='place_id', required=True, type=openapi.TYPE_INTEGER)
-    @swagger_auto_schema(tags=['공간대여 좋아요 했나 확인 user_pk=id,place_pk=id'])
-    def get(self, request):
-        user_pk = request.GET.get("user_pk")
-        place_pk = request.GET.get("place_pk")
-        user = User.objects.get(id=user_pk)
-        place = PopupPlace.objects.get(id=place_pk)
-        if user in place.popup_place_like_people.all():
-            return Response({"message": "좋아요눌린상태.","like_state":1}, status=200)
-        else: 
-            return Response({"message": "좋아요안눌린상태.","like_state":0}, status=200)
+
 
 class PopupPlaceReservationView(APIView):
     
