@@ -138,9 +138,9 @@ urlpatterns = [
     path("deletepopupreservation/",DeletePopupReservationView.as_view()),
     
     path("gif/",Video_GetView.as_view()),#gif가져오기
+    path("gif/all/",Video_allGetList.as_view()),#gif가져오기
 
-    
-    
+  
 
     
     # Swagger url

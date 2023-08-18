@@ -21,3 +21,16 @@ class Video_GetView(APIView):
         video_serializer = VideoSerializer(video, many=True)
 
         return Response(video_serializer.data, status=200)
+    
+
+
+class Video_allGetList(APIView):
+    
+    @swagger_auto_schema(tags=['모든영상'])
+    
+    def get(self, request):
+           
+        video=GifModel.objects.all()
+        video_serializer = VideoSerializer(video, many=True)
+
+        return Response(video_serializer.data, status=200)
